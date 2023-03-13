@@ -1,4 +1,4 @@
-# CubeSatThermal Power App
+# CubeSat Thermal Power App
 
 On this MATLAB app (GUI) you can:
 1) Propagate Earth/Moon orbit;
