@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="373001366" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2809318834" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/Codebase/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/Codebase" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
     <param.appname>CubeSat Thermal Power Toolbox</param.appname>
     <param.authnamewatermark>Bruno Mattos</param.authnamewatermark>
     <param.email />
@@ -75,12 +75,14 @@
       <file>${PROJECT_ROOT}/propagateMoonOrbit.m</file>
     </fileset.depfun>
     <fileset.resources>
+      <file>${PROJECT_ROOT}/LunarOrbitPropagator.slx</file>
       <file>${PROJECT_ROOT}/Textures</file>
       <file>${PROJECT_ROOT}/initializeParameters.m</file>
+      <file>${PROJECT_ROOT}/simpleThermalModel.slx</file>
     </fileset.resources>
     <fileset.package />
     <build-deliverables>
-      <file location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH" name="CubeSatThermalPowerToolbox" optional="false">/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox</file>
+      <file location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="Codebase" optional="false">/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/Codebase</file>
     </build-deliverables>
     <workflow />
     <matlab>
