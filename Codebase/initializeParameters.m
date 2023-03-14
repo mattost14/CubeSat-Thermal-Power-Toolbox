@@ -1,3 +1,11 @@
+%% Add all folders to path
+addpath("PlotFunctions/")
+addpath("AuxFunctions/")
+addpath("OrbitPropagators/")
+addpath("Textures/")
+addpath("ThermalModelsSimscape/")
+
+
 %% ########## Orbit Tab ########
 app.param.orb.centralBody = "Earth";
 app.param.orb.solarFlux = 1361; % W/m2
@@ -43,6 +51,9 @@ app.AlbedoEditField.Value = app.param.Albedo;
 app.PropagatorDropDown.Items = app.param.earthOrbPropagatorList;
 app.PropagatorDropDown.Value = app.param.orb.orbitPropagator;
 app.UpdateOrbitStatusLabel.Visible = "off";
+
+% Tooltips
+packingFactorToolTip = "Percentage of the total panel area that is covered by solar cells";
 
 
 %% ########## Model Tab ########
@@ -105,6 +116,8 @@ app.SizeDropDownXplus.Enable = "off";
 app.CellEfficiencySpinnerXplusDeployable.Enable = "off";
 app.EffecAreaRatioSpinnerXplusDeployable.Enable = "off";
 app.FlipPanelCheckBoxXplus.Enable = "off";
+app.EffecAreaRatioSpinnerXplus.Tooltip = packingFactorToolTip;
+app.EffecAreaRatioSpinnerXplusDeployable.Tooltip = packingFactorToolTip;
 
 
 % Update X- face tab
@@ -124,6 +137,8 @@ app.SizeDropDownXminus.Enable = "off";
 app.CellEfficiencySpinnerXminusDeployable.Enable = "off";
 app.EffecAreaRatioSpinnerXminusDeployable.Enable = "off";
 app.FlipPanelCheckBoxXminus.Enable = "off";
+app.EffecAreaRatioSpinnerXminus.Tooltip = packingFactorToolTip;
+app.EffecAreaRatioSpinnerXminusDeployable.Tooltip = packingFactorToolTip;
 
 % Update Y+ face tab
 app.SurfaceTypeDropDownYplus.Items = itemList;
@@ -142,6 +157,8 @@ app.SizeDropDownYplus.Enable = "off";
 app.CellEfficiencySpinnerYplusDeployable.Enable = "off";
 app.EffecAreaRatioSpinnerYplusDeployable.Enable = "off";
 app.FlipPanelCheckBoxYplus.Enable = "off";
+app.EffecAreaRatioSpinnerYplus.Tooltip = packingFactorToolTip;
+app.EffecAreaRatioSpinnerYplusDeployable.Tooltip = packingFactorToolTip;
 
 % Update Y- face tab
 app.SurfaceTypeDropDownYminus.Items = itemList;
@@ -160,6 +177,8 @@ app.SizeDropDownYminus.Enable = "off";
 app.CellEfficiencySpinnerYminusDeployable.Enable = "off";
 app.EffecAreaRatioSpinnerYminusDeployable.Enable = "off";
 app.FlipPanelCheckBoxYminus.Enable = "off";
+app.EffecAreaRatioSpinnerYminus.Tooltip = packingFactorToolTip;
+app.EffecAreaRatioSpinnerYminusDeployable.Tooltip  = packingFactorToolTip;
 
 % Update Z+ face tab
 app.SurfaceTypeDropDownZplus.Items = itemList;
@@ -178,6 +197,8 @@ app.SizeDropDownZplus.Enable = "off";
 app.CellEfficiencySpinnerZplusDeployable.Enable = "off";
 app.EffecAreaRatioSpinnerZplusDeployable.Enable = "off";
 app.FlipPanelCheckBoxZplus.Enable = "off";
+app.EffecAreaRatioSpinnerZplus.Tooltip = packingFactorToolTip;
+app.EffecAreaRatioSpinnerZplusDeployable.Tooltip = packingFactorToolTip;
 
 % Update Z- face tab
 app.SurfaceTypeDropDownZminus.Items = itemList;
@@ -196,12 +217,27 @@ app.SizeDropDownZminus.Enable = "off";
 app.CellEfficiencySpinnerZminusDeployable.Enable = "off";
 app.EffecAreaRatioSpinnerZminusDeployable.Enable = "off";
 app.FlipPanelCheckBoxZminus.Enable = "off";
+app.EffecAreaRatioSpinnerZminus.Tooltip = packingFactorToolTip;
+app.EffecAreaRatioSpinnerZminusDeployable.Tooltip = packingFactorToolTip;
+
 
 % Attitude
 app.NadirFaceDropDown.Items = ["X+"; "X-"; "Y+"; "Y-"; "Z+"; "Z-"];
 app.NadirFaceDropDown.Value = app.param.attitude.nadirFace;
 app.RamFaceDropDown.Items = ["Y+"; "Y-"; "Z+"; "Z-"];
 app.RamFaceDropDown.Value = app.param.attitude.ramFace;
+app.RamFaceDropDown.Tooltip = "Ram side is the side that points in the direction of the satellite's motion";
+
+% Internal node properties
+app.IntermalnodetototalmassratioSpinner.Tooltip = "Ratio of the internal nodel mass to the total satellite mass. The remaining mass is distributed to face nodes proportionally to the each face area.";
+
+% Thermal Resistance
+app.SpinnerRXplus.Tooltip = "Thermal resistance between the internal nodel and the X+ face";
+app.SpinnerRXminus.Tooltip = "Thermal resistance between the internal nodel and the X- face";
+app.SpinnerRYplus.Tooltip = "Thermal resistance between the internal nodel and the Y+ face";
+app.SpinnerRYminus.Tooltip = "Thermal resistance between the internal nodel and the Y- face";
+app.SpinnerRZplus.Tooltip = "Thermal resistance between the internal nodel and the Z+ face";
+app.SpinnerRZminus.Tooltip = "Thermal resistance between the internal nodel and the Z- face";
 
 
 %% ########## Power Tab ########

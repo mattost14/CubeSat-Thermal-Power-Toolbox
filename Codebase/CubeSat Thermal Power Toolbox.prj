@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2809318834" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/Codebase/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/Codebase" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2753517261" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/Codebase/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/Codebase" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
     <param.appname>CubeSat Thermal Power Toolbox</param.appname>
     <param.authnamewatermark>Bruno Mattos</param.authnamewatermark>
     <param.email />
@@ -51,34 +51,14 @@
     </fileset.main>
     <fileset.depfun>
       <file>${PROJECT_ROOT}/AppIconCubeSat.png</file>
-      <file>${PROJECT_ROOT}/computePower.m</file>
-      <file>${PROJECT_ROOT}/computeThermal.m</file>
-      <file>${PROJECT_ROOT}/getCubeSatPlotPoints.m</file>
-      <file>${PROJECT_ROOT}/getDeployablePlotPoints.m</file>
-      <file>${PROJECT_ROOT}/getPropertiesFromMaterial.m</file>
-      <file>${PROJECT_ROOT}/getTexture.m</file>
-      <file>${PROJECT_ROOT}/lunarGeographicalData.mat</file>
-      <file>${PROJECT_ROOT}/plotAlbedoRadiationInput.m</file>
-      <file>${PROJECT_ROOT}/plotAltitude.m</file>
-      <file>${PROJECT_ROOT}/plotBatteryDepletion.m</file>
-      <file>${PROJECT_ROOT}/plotBetaAngle.m</file>
-      <file>${PROJECT_ROOT}/plotCubesatView.m</file>
-      <file>${PROJECT_ROOT}/plotFacesTemperatures.m</file>
-      <file>${PROJECT_ROOT}/plotIRRadiationInput.m</file>
-      <file>${PROJECT_ROOT}/plotInternalTemperatures.m</file>
-      <file>${PROJECT_ROOT}/plotOrbit3D.m</file>
-      <file>${PROJECT_ROOT}/plotPwrConsumption.m</file>
-      <file>${PROJECT_ROOT}/plotPwrGeneration.m</file>
-      <file>${PROJECT_ROOT}/plotSolarRadiationInput.m</file>
-      <file>${PROJECT_ROOT}/plotSunlight.m</file>
-      <file>${PROJECT_ROOT}/propagateEarthOrbit.m</file>
-      <file>${PROJECT_ROOT}/propagateMoonOrbit.m</file>
     </fileset.depfun>
     <fileset.resources>
-      <file>${PROJECT_ROOT}/LunarOrbitPropagator.slx</file>
+      <file>${PROJECT_ROOT}/AuxFunctions</file>
+      <file>${PROJECT_ROOT}/OrbitPropagators</file>
+      <file>${PROJECT_ROOT}/PlotFunctions</file>
       <file>${PROJECT_ROOT}/Textures</file>
+      <file>${PROJECT_ROOT}/ThermalModelsSimscape</file>
       <file>${PROJECT_ROOT}/initializeParameters.m</file>
-      <file>${PROJECT_ROOT}/simpleThermalModel.slx</file>
     </fileset.resources>
     <fileset.package />
     <build-deliverables>
