@@ -41,7 +41,7 @@ end
 
 function thermalModel = prepareSimpleThermalModelInputs(param)
     % ######## PREPARE SIMSCAPE simpleThermalModel MODEL ########
-    thermalModel.mdl = "simpleThermalModel_v2";
+    thermalModel.mdl = "simpleThermalModel";
 
     % Use a SimulationInput object to configure the model for our simulation.
     thermalModel.sim.in = Simulink.SimulationInput(thermalModel.mdl);
