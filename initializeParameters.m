@@ -1,9 +1,9 @@
 %% Add all folders to path
-addpath("PlotFunctions/")
-addpath("AuxFunctions/")
-addpath("OrbitPropagators/")
-addpath("Textures/")
-addpath("ThermalModelsSimscape/")
+% addpath("PlotFunctions/")
+% addpath("AuxFunctions/")
+% addpath("OrbitPropagators/")
+% addpath("Textures/")
+% addpath("ThermalModelsSimscape/")
 
 
 %% ########## Orbit Tab ########
