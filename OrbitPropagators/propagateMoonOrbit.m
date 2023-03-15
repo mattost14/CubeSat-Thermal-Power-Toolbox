@@ -28,7 +28,7 @@ sat.blk = mission.mdl + "/Orbit Propagator";
 moon.F = 0.0012;  % Moon ellipticity (flattening) (Ref 1)
 moon.R_eq = 1737400; % [m] Lunar radius in meters (Ref 1)
 moon.ReferenceEllipsoid = referenceEllipsoid("moon","meter"); % Moon reference ellipsoid
-moon.Data = matfile("lunarGeographicalData.mat"); % Load moon geographical data
+% moon.Data = matfile("lunarGeographicalData.mat"); % Load moon geographical data
 
 % Set CSM initial conditions. To assign the Keplerian orbital element set defined in the previous section, use setBlockParameter.
 mission.sim.in = mission.sim.in.setBlockParameter(...
@@ -92,8 +92,8 @@ mission.sim.in = mission.sim.in.setModelParameter(...
 %% RUN the model and collect ephemerides
 try
 %     options = simset('SrcWorkspace','current', 'DstWorkspace', 'current');
-    assignin('base', 'moon', moon);
-    assignin('base', 'mission', mission);
+%     assignin('base', 'moon', moon);
+%     assignin('base', 'mission', mission);
     mission.sim.out = sim(mission.sim.in);
     
     % Extract the position and velocity data from the model output data structure.

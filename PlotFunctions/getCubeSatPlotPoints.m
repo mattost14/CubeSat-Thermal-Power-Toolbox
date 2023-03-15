@@ -17,17 +17,13 @@ function P = getCubeSatPlotPoints(numberOfUnits)
             numberUnitAlongX = 3;
             numberUnitAlongY = 2;
             numberUnitAlongZ = 2;
+        case 16
+            numberUnitAlongX = 4;
+            numberUnitAlongY = 2;
+            numberUnitAlongZ = 2;
     end
     
-        % X face
-%         x_faceX = ones(numberUnitAlongZ+1, numberUnitAlongY+1)*(numberUnitAlongX)*.5;
-%         y_faceX = [ .5, -.5; .5, -.5];
-%         z_faceX = [ones(1,length(y_faceX)); -ones(1,length(y_faceX))]*(.5);
-%         faceX_plus.x = x_faceX;
-%         faceX_plus.y = y_faceX;
-%         faceX_plus.z = z_faceX;
-%         faceX_minus = faceX_plus;
-%         faceX_minus.x = -faceX_minus.x;
+
 
     switch numberOfUnits
         case 1
@@ -121,7 +117,7 @@ function P = getCubeSatPlotPoints(numberOfUnits)
             % X face
             x_faceX = ones(numberUnitAlongZ+1, numberUnitAlongY+1)*(numberUnitAlongX)*.5;
             y_faceX = [ -1, 0, 1; -1, 0, 1; -1, 0, 1];
-            z_faceX = [ones(1,length(y_faceX)); 0, 0, 0; -ones(1,length(y_faceX))];
+            z_faceX = [ones(1,length(y_faceX)); zeros(1,length(y_faceX)); -ones(1,length(y_faceX))];
             faceX_plus.x = x_faceX;
             faceX_plus.y = y_faceX;
             faceX_plus.z = z_faceX;
@@ -139,6 +135,35 @@ function P = getCubeSatPlotPoints(numberOfUnits)
             % Z face
             x_faceZ = [ -1.5, -.5, .5, 1.5; -1.5, -.5, .5, 1.5; -1.5, -.5, .5, 1.5];
             y_faceZ = [ -1, -1, -1, -1; 0, 0, 0, 0; 1, 1, 1, 1];
+            z_faceZ = [ones(1,length(y_faceZ)); ones(1,length(y_faceZ)); ones(1,length(y_faceZ)) ];
+            faceZ_plus.x = x_faceZ;
+            faceZ_plus.y = y_faceZ;
+            faceZ_plus.z = z_faceZ;
+            faceZ_minus = faceZ_plus;
+            faceZ_minus.z = -faceZ_minus.z;
+            P = [faceX_plus, faceX_minus, faceY_plus, faceY_minus, faceZ_plus, faceZ_minus];
+        case 16
+            % X face
+            x_faceX = ones(numberUnitAlongZ+1, numberUnitAlongY+1)*(numberUnitAlongX)*.5;
+            y_faceX = [ -1, 0, 1; -1, 0, 1; -1, 0, 1];
+            z_faceX = [ones(1,length(y_faceX)); 0, 0, 0; -ones(1,length(y_faceX))];
+            faceX_plus.x = x_faceX;
+            faceX_plus.y = y_faceX;
+            faceX_plus.z = z_faceX;
+            faceX_minus = faceX_plus;
+            faceX_minus.x = -faceX_minus.x;
+            % Y face
+            x_faceY = [ -2, -1, 0, 1, 2; -2, -1, 0, 1, 2; -2, -1, 0, 1, 2];
+            y_faceY = [ 1, 1, 1, 1, 1; 1, 1, 1, 1, 1; 1, 1, 1, 1, 1];
+            z_faceY = [ones(1,length(y_faceY)); zeros(1,length(y_faceY)); -ones(1,length(y_faceY))];
+            faceY_plus.x = x_faceY;
+            faceY_plus.y = y_faceY;
+            faceY_plus.z = z_faceY;
+            faceY_minus = faceY_plus;
+            faceY_minus.y = -faceY_minus.y;
+            % Z face
+            x_faceZ = [ -2, -1, 0, 1, 2; -2, -1, 0, 1, 2; -2, -1, 0, 1, 2];
+            y_faceZ = [ -1, -1, -1, -1, -1; 0, 0, 0, 0, 0 ; 1, 1, 1, 1, 1];
             z_faceZ = [ones(1,length(y_faceZ)); ones(1,length(y_faceZ)); ones(1,length(y_faceZ)) ];
             faceZ_plus.x = x_faceZ;
             faceZ_plus.y = y_faceZ;

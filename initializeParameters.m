@@ -238,6 +238,7 @@ app.SpinnerRYplus.Tooltip = "Thermal resistance between the internal nodel and t
 app.SpinnerRYminus.Tooltip = "Thermal resistance between the internal nodel and the Y- face";
 app.SpinnerRZplus.Tooltip = "Thermal resistance between the internal nodel and the Z+ face";
 app.SpinnerRZminus.Tooltip = "Thermal resistance between the internal nodel and the Z- face";
+app.ThermalResistanceImage.ImageSource = "Figures/ThermalModel7NodesSchematic.png";
 
 
 %% ########## Power Tab ########
