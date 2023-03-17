@@ -1,7 +1,9 @@
-function  plotOrbit3D(appAxis, centralBody, r_ff)
-%PLOT3DORBIT Summary of this function goes here
-%   Detailed explanation goes here
-    cla(appAxis);
+function  plotOrbit3D(appAxis, centralBody, param)
+%PLOT3DORBIT plots the propagated orbit around the selected central body in
+%the Fixed Frame
+
+    
+cla(appAxis);
     switch centralBody
         case "Earth"
             C = imread('Textures/earthGlobe.png');
@@ -29,12 +31,25 @@ function  plotOrbit3D(appAxis, centralBody, r_ff)
     q=quiver3(appAxis, [0],[0],[0],v(1),v(2),v(3), 'Color','g','LineWidth',5);
     text(appAxis, v(1),v(2),v(3),'z','HorizontalAlignment','left','FontSize',12, 'Color','b');
 
+
     
     axis(appAxis, "off");
     axis(appAxis, "equal");
 
     if(nargin>2)
-        plot3(appAxis, r_ff(:,1)/1e3, r_ff(:,2)/1e3, r_ff(:,3)/1e3,"r");
+        % Check if there orbital was propagated successfully
+        if(param.orb.prop.flag)
+            r_ff = param.orb.prop.r_ff;
+            plot3(appAxis, r_ff(:,1)/1e3, r_ff(:,2)/1e3, r_ff(:,3)/1e3,"r");
+            scatter3(appAxis, r_ff(1,1)/1e3, r_ff(1,2)/1e3, r_ff(1,3)/1e3,"r",'filled'); % Show sat dot at initial position
+        end
+        % Check if the user wants to show the Sun vector at time t=0
+        if(param.orb.prop.flag && param.plot.orbitPlot.showSunVectorFlag)
+            sunVector = param.orb.prop.Sun_ff;
+            v = 2*R*sunVector(1,:); % First sun position in the Fixed Frame
+            quiver3(appAxis, [0],[0],[0],v(1),v(2),v(3), 'Color',"#EDB120",'LineWidth',5);
+            text(appAxis, v(1),v(2),v(3),'Sun','HorizontalAlignment','left','FontSize',12, 'Color',"#EDB120");  
+        end
     end
 end
 

@@ -31,7 +31,14 @@ function [propData, flag] = propagateEarthOrbit(orb)
         v_I = (v_I')./1e3; % m/s -> km/s
     
         % Sun position x,y,z at ECI (Inertial) frame
-        sun_I = planetEphemeris(time_Julian,'Earth','Sun'); % units: km
+        [sun_I, sunV_I] = planetEphemeris(time_Julian,'Earth','Sun'); % units: km
+
+        % Convert sun vector from ECI to ECEF
+        sun_ff = zeros(size(sun_I));
+        for i=1:length(time_Julian)
+            [sun_f, ~] = eci2ecef(time_UTC(i), sun_I(i,:), sunV_I(i,:));
+            sun_ff(i,:) = sun_f / norm(sun_f);
+        end
         
         % Moon position x,y,z at ECI (Inertial) frame
         moon_I = planetEphemeris(time_Julian,'Earth','Moon'); % units: km
@@ -101,6 +108,7 @@ function [propData, flag] = propagateEarthOrbit(orb)
         propData.time_UTC = time_UTC;
         propData.altitude = altitude;
         propData.Sun_I = sun_I;
+        propData.Sun_ff = sun_ff; % unit vector
         propData.sunMagnitude = sunMagnitude;
         propData.Moon_I = moon_I;
         propData.albedoAngle = albedoAngle;

@@ -209,7 +209,7 @@ try
     propData.time_UTC = time_UTC;
     propData.altitude = altitude;
     propData.Sun_I = sun_I;
-    propData.Sun_ff = sun_ff;
+    propData.Sun_ff = sun_ff; % unit vector
     propData.sunMagnitude = sunMagnitude;
     propData.albedoAngle = albedoAngle;
     propData.limbAngle = thetaSat2MoonTangent;

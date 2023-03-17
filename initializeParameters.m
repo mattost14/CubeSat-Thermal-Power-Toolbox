@@ -31,6 +31,7 @@ app.param.IRmodel = "Day/Night Temp";
 app.param.moonOrbPropagatorList = ["Kepler"; "Numerical (high precision)"];
 app.param.earthOrbPropagatorList = ["two-body-keplerian"; "sgp4"];
 app.param.orb.orbitPropagator = "two-body-keplerian";
+app.param.plot.orbitPlot.showSunVectorFlag = 0;
 
 % Update fields value with inital parameters
 app.CentralBodyDropDown.Items = ["Earth"; "Moon"];
