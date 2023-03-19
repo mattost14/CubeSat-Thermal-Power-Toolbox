@@ -27,9 +27,11 @@ app.param.Tir_Night = 254;% default: 254; % Black-body temp during night time (K
 app.param.Albedo = 0.3;
 app.param.earthIRmodelList = ["Day/Night Temp"];
 app.param.moonIRmodelList = ["Day/Night Temp"; "Gradient"];
+app.param.IRmodelItemList = app.param.earthIRmodelList;
 app.param.IRmodel = "Day/Night Temp";
 app.param.moonOrbPropagatorList = ["Kepler"; "Numerical (high precision)"];
 app.param.earthOrbPropagatorList = ["two-body-keplerian"; "sgp4"];
+app.param.propagatorItemList = app.param.earthOrbPropagatorList;
 app.param.orb.orbitPropagator = "two-body-keplerian";
 app.param.plot.orbitPlot.showSunVectorFlag = 0;
 

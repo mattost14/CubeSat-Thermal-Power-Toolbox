@@ -2,12 +2,12 @@ function [thermal,flag] = computeThermal(param)
 %COMPUTETHERMAL Summary of this function goes here
 %   Detailed explanation goes here
 
-    sigma = 5.67e-8; % Stefan-Boltzmann constant (W · m -2 · K -4 )
-    param.krad = param.emissivity*sigma;
-
-    % Mass paramters
-    param.facesMass = param.facesMassDistribution * (1-param.internalNode2TotalMassRatio) * param.satelliteMass;
-    param.internalNodeMass = param.internalNode2TotalMassRatio * param.satelliteMass;
+%     sigma = 5.67e-8; % Stefan-Boltzmann constant (W · m -2 · K -4 )
+%     param.krad = param.emissivity*sigma;
+% 
+%     % Mass paramters
+%     param.facesMass = param.facesMassDistribution * (1-param.internalNode2TotalMassRatio) * param.satelliteMass;
+%     param.internalNodeMass = param.internalNode2TotalMassRatio * param.satelliteMass;
 
     % ### Internal loads ###
     param.thermal.internalPwr = computeInternalPwr(param);
