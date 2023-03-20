@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2690552346" file="/Users/brunomattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/brunomattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3921115433" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
     <param.appname>CubeSat Thermal Power Toolbox</param.appname>
     <param.authnamewatermark>Bruno Mattos</param.authnamewatermark>
     <param.email />
@@ -20,8 +20,8 @@
 3) Run power analysis
 
 4) Run thermal analysis using a Lumped Parameter Model (LPM)</param.description>
-    <param.screenshot>/Users/BrunoMattos/Desktop/MoonOrbitPageScreenShot.png</param.screenshot>
-    <param.version>1.0.2.6</param.version>
+    <param.screenshot>/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox_Installers/Figures/ModelTab.png</param.screenshot>
+    <param.version>1.0.2.7</param.version>
     <param.products.name>
       <item>MATLAB</item>
       <item>Simulink</item>
@@ -37,11 +37,11 @@
       <item>104</item>
     </param.products.id>
     <param.products.version>
-      <item>9.13</item>
-      <item>10.6</item>
+      <item>9.12</item>
+      <item>10.5</item>
+      <item>5.2</item>
+      <item>4.2</item>
       <item>5.3</item>
-      <item>4.3</item>
-      <item>5.4</item>
     </param.products.version>
     <param.platforms />
     <param.output>${PROJECT_ROOT}</param.output>
@@ -70,11 +70,11 @@
     </fileset.resources>
     <fileset.package />
     <build-deliverables>
-      <file location="/Users/brunomattos/Documents/UNIVERSITY/RESEARCH" name="CubeSatThermalPowerToolbox" optional="false">/Users/brunomattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox</file>
+      <file location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH" name="CubeSatThermalPowerToolbox" optional="false">/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2022b.app</root>
+      <root>/Applications/MATLAB_R2022a.app</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
         <toolbox name="embeddedcoder" />
@@ -117,7 +117,7 @@
       <vista>false</vista>
       <linux>false</linux>
       <solaris>false</solaris>
-      <osver>12.6.3</osver>
+      <osver>12.2.1</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>maci64</arch>
