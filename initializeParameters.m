@@ -265,6 +265,8 @@ app.param.thermal.flag = 0;
 app.param.plot.solarRadiationInput.showFacesFlag = 0;
 app.param.plot.IRRadiationInput.showFacesFlag = 0;
 app.param.plot.albedoRadiationInput.showFacesFlag = 0;
+app.param.plot.IRRadiationInput.showAbsorbedIRFlag = 1;
+app.param.plot.IRRadiationInput.showRadiatedIRFlag = 0;
 
 % Update fields value with inital parameters
 app.ComputeThermalStatusLabel.Visible = "off";
