@@ -211,9 +211,20 @@ function faceIR = planetIRsimple(param)
     % Constants
     sigma = 5.67e-8; % Stefan-Boltzmann constant (W · m -2 · K -4 )
 
-    %%% Planetary IR Power
-    daytime = (param.orb.prop.albedoAngle.AlbedoAngle_deg_ - 90 < 0);
-    Pir = daytime*sigma*(param.Tir_Day)^4 + (1-daytime)*sigma*(param.Tir_Night)^4; % Central body radiation
+    %%% Get the satellite half FOV to earth tangent (limb angle: alpha in the schematic)
+    alpha = param.orb.prop.limbAngle; % deg
+
+    %%% Get theta angle
+    theta = param.orb.prop.albedoAngle.AlbedoAngle_deg_; % deg
+
+    %%% Compute averaged T^4 (see schematic to understand the weighting method)
+    dayArcWeight = max((180 - theta - alpha),0);
+    nightArcWeight = max((theta - alpha),0);
+    Tavg_power4 = (dayArcWeight * (param.Tir_Day)^4 + nightArcWeight * (param.Tir_Night)^4)./(dayArcWeight + nightArcWeight);
+
+    % Compute planetary IR flux
+    Pir = sigma * Tavg_power4; % Central body radiation
+
 
     % Compute IR flux at each face
     for n=1:length(param.facesMaterial)
