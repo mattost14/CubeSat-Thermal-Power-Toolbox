@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="735797105" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3128396950" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
     <param.appname>CubeSat Thermal Power Toolbox</param.appname>
     <param.authnamewatermark>Bruno Mattos</param.authnamewatermark>
     <param.email />
@@ -21,7 +21,7 @@
 
 4) Run thermal analysis using a Lumped Parameter Model (LPM)</param.description>
     <param.screenshot>/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox_Installers/Figures/ModelTab.png</param.screenshot>
-    <param.version>1.0.3.0</param.version>
+    <param.version>1.0.3.1</param.version>
     <param.products.name>
       <item>MATLAB</item>
       <item>Simulink</item>
