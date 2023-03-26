@@ -250,7 +250,9 @@ app.param.pwrDissipationProfileList = ["Constant"; "Day/Night"];
 app.param.pwrDissipationProfile = app.param.pwrDissipationProfileList(1);
 app.param.pwrDissipationDaySimpleModel = 1;      % W
 app.param.pwrDissipationNightSimpleModel = 1;    % W
-app.param.pwr.flag = 0; 
+app.param.pwr.flag = 0;
+app.param.computePwrWithShadowFlag = 0;
+app.param.plot.animation.status = "stop";
 
 % Update fields value with inital parameters
 app.ProfileDropDown.Items = app.param.pwrDissipationProfileList;
@@ -259,6 +261,7 @@ app.PwrDayWSpinner.Value = app.param.pwrDissipationDaySimpleModel;
 app.PwrNightWSpinner.Value = app.param.pwrDissipationNightSimpleModel;
 app.PwrNightWSpinner.Enable = "off";
 app.ComputePowerStatusLabel.Visible = "off";
+app.ConsidershadowsCheckBox.Value = app.param.computePwrWithShadowFlag;
 
 %% ########## Thermal Tab ########
 app.param.thermal.flag = 0; 
