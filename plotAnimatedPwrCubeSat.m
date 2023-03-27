@@ -25,18 +25,6 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
 
     [i, ~] = find(param.pwr.time_Epoch == time);
 
-%     if(~isempty(i0))
-%         if(playFlag)
-%             indexArray = i0:length(param.pwr.time_Epoch);
-%         else
-%             indexArray = i0;
-%         end
-%     else
-%         indexArray = 1;
-%     end
-    
-
-
     cla(appAxis);
     hold(appAxis,"on")
     for n=1:6
@@ -62,16 +50,25 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
             faceXVector = fixedDeployableVertices_L(:,1,n);
             faceYVector = fixedDeployableVertices_L(:,2,n);
             faceZVector = fixedDeployableVertices_L(:,3,n);
-            [faceXVector_shifted, faceYVector_shifted, faceZVector_shifted] = pushOutFromFixedPanel(faceXVector, faceYVector, faceZVector,deployable.hinge(n), deployable.flipFixedPanel(n), attitude);
+            [faceXVector_shifted, faceYVector_shifted, faceZVector_shifted] = pushOutFromFixedPanel(faceXVector, faceYVector, faceZVector,deployable.hinge(n), deployable.flipFixedPanel(n), attitude, "cover");
             faceX = reshape(faceXVector,[2,2]);
             faceY = reshape(faceYVector,[2,2]);
             faceZ = reshape(faceZVector,[2,2]);
-            surf(appAxis, faceX, faceY, faceZ,"FaceColor",iluminatedSolarPanelColor,"EdgeColor","k")
+            isFixedPanelGeneratingPowerFlag = isFixedPanelGeneratingPower(deployable.hinge(n), deployable.flipFixedPanel(n), attitude,  Sun_L(i,:));
+            if(param.orb.prop.sunMagnitude(i)>0 && isFixedPanelGeneratingPowerFlag)
+                surf(appAxis, faceX, faceY, faceZ,"FaceColor",iluminatedSolarPanelColor,"EdgeColor","k")
+            else
+                surf(appAxis, faceX, faceY, faceZ,"FaceColor",shadowSolarPanelColor,"EdgeColor","k")
+            end
             % Plot panel cover
             faceX = reshape(faceXVector_shifted,[2,2]);
             faceY = reshape(faceYVector_shifted,[2,2]);
             faceZ = reshape(faceZVector_shifted,[2,2]);
-            surf(appAxis, faceX, faceY, faceZ,"FaceColor",iluminatedBodyColor,"EdgeColor","k")
+            if(param.orb.prop.sunMagnitude(i)>0 && ~isFixedPanelGeneratingPowerFlag)
+                surf(appAxis, faceX, faceY, faceZ,"FaceColor",iluminatedBodyColor,"EdgeColor","k")
+            else
+                surf(appAxis, faceX, faceY, faceZ,"FaceColor",shadowBodyColor,"EdgeColor","k")
+            end
         end
 
         % ## plot cubesat tracking panels ##
@@ -111,8 +108,21 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
                 faceXVector = shadeVertices(:,1);
                 faceYVector = shadeVertices(:,2);
                 faceZVector = shadeVertices(:,3);
-                [faceXVector, faceYVector, faceZVector] = pushOutFromTrackingPanel(faceXVector, faceYVector, faceZVector, Sun_L(i,:), "shadow");
-                fill3(appAxis, faceXVector,faceYVector,faceZVector,shadowSolarPanelColor)        
+                if(deployable.type(n) == "Tracking")
+                    [faceXVector, faceYVector, faceZVector] = pushOutFromTrackingPanel(faceXVector, faceYVector, faceZVector, Sun_L(i,:), "shadow");
+                    fill3(appAxis, faceXVector,faceYVector,faceZVector,shadowSolarPanelColor)
+                else
+                    %If active face is under the sun, then shaded the red
+                    %surface, otherwise shaded the cover on the back
+                    flipFlag = deployable.flipFixedPanel(n);
+                    if(isFixedPanelGeneratingPower(deployable.hinge(n), flipFlag, attitude, Sun_L(i,:)))
+                        [faceXVector, faceYVector, faceZVector] = pushOutFromFixedPanel(faceXVector, faceYVector, faceZVector, deployable.hinge(n), flipFlag, attitude, "shadowOverPanel");
+                        fill3(appAxis, faceXVector,faceYVector,faceZVector, shadowSolarPanelColor) 
+                    else
+                        [faceXVector, faceYVector, faceZVector] = pushOutFromFixedPanel(faceXVector, faceYVector, faceZVector, deployable.hinge(n), flipFlag, attitude, "shadowOverCover");
+                        fill3(appAxis, faceXVector, faceYVector,faceZVector, shadowBodyColor)
+                    end
+                end
             end
         end
 
@@ -123,7 +133,7 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
     end
 
     axis(appAxis, "equal");
-    view(appAxis, [1,1,1])
+%     view(appAxis, [1,1,1])
     axis(appAxis, "off");
     set(appAxis, 'Zdir', 'reverse')
     
@@ -135,6 +145,7 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
 
 end
 
+
 function delta = pushOut(v)
     delta = zeros(length(v),1);
     if(sum(diff(v)) == 0)
@@ -143,7 +154,43 @@ function delta = pushOut(v)
     end
 end
 
-function [faceXVector, faceYVector, faceZVector] = pushOutFromFixedPanel(faceXVector, faceYVector, faceZVector, hingeFace, flipFlag, attitude)
+function flag = isFixedPanelGeneratingPower(hingeFace, flipFlag, attitude, sun)
+hingeFace = extractAfter(hingeFace, " | ");
+    hingeFace = char(hingeFace);
+    switch hingeFace(1) % X
+        case "X"
+            if(hingeFace(2) == '+')
+                normalVector = attitude.XplusFaceVector_LVLH;
+            else
+                normalVector = -attitude.XplusFaceVector_LVLH;
+            end
+        case "Y"
+            if(hingeFace(2) == '+')
+                normalVector = attitude.YplusFaceVector_LVLH;
+            else
+                normalVector = -attitude.YplusFaceVector_LVLH;
+            end
+        case "Z"
+            if(hingeFace(2) == '+')
+                normalVector = attitude.ZplusFaceVector_LVLH;
+            else
+                normalVector = -attitude.ZplusFaceVector_LVLH;
+            end
+    end
+
+    % Check if the panel is flipped
+    if(flipFlag)
+        normalVector = -normalVector;
+    end
+
+    if(dot(normalVector,sun)>0)
+        flag = 1;
+    else
+        flag = 0;
+    end
+end
+
+function [faceXVector, faceYVector, faceZVector] = pushOutFromFixedPanel(faceXVector, faceYVector, faceZVector, hingeFace, flipFlag, attitude, purpose)
     
     hingeFace = extractAfter(hingeFace, " | ");
     hingeFace = char(hingeFace);
@@ -173,10 +220,20 @@ function [faceXVector, faceYVector, faceZVector] = pushOutFromFixedPanel(faceXVe
         normalVector = -normalVector;
     end
 
-    faceXVector = faceXVector + 0.02 * normalVector(1);
-    faceYVector = faceYVector + 0.02 * normalVector(2);
-    faceZVector = faceZVector + 0.02 * normalVector(3);
-
+    switch purpose
+        case "shadowOverCover"
+            faceXVector = faceXVector + 0.03 * normalVector(1);
+            faceYVector = faceYVector + 0.03 * normalVector(2);
+            faceZVector = faceZVector + 0.03 * normalVector(3);
+        case "shadowOverPanel"
+            faceXVector = faceXVector - 0.02 * normalVector(1);
+            faceYVector = faceYVector - 0.02 * normalVector(2);
+            faceZVector = faceZVector - 0.02 * normalVector(3);
+        otherwise
+            faceXVector = faceXVector + 0.02 * normalVector(1);
+            faceYVector = faceYVector + 0.02 * normalVector(2);
+            faceZVector = faceZVector + 0.02 * normalVector(3);  
+    end
 end
 
 function [faceXVector, faceYVector, faceZVector] = pushOutFromTrackingPanel(faceXVector, faceYVector, faceZVector, sun, purpose)

@@ -42,7 +42,7 @@ function shadow = computeShadowFactors(param, faceSolarLight)
                 hingeFace = extractAfter(deployable.hinge(n), " | ");
                 hingeFaceIdx = find(faceIDText == hingeFace);
                 hingeFacePoints = faceVertices_L(:,:,hingeFaceIdx);
-                if(faceSolarLight(i,hingeFaceIdx).(1))
+                if(faceSolarLight(i,hingeFaceIdx).(1) && faceSolarLight(i,n).(1))
                     [shadowFaceAreaRatio(i,hingeFaceIdx), shadowFaceVertices_L{i,hingeFaceIdx}] =  computeShadowProjectionPanel2Face(hingeFacePoints, panelPoints, sun);
                 end
     
@@ -177,35 +177,6 @@ end
 
 function [shadowFaceAreaRatio, shadowFaceVertices_L] = computeShadowProjectionPanel2Face(facePoints, panelPoints, sun)
 
-    % Change the Frame to make x-axis along the sun vector (let's call
-    % Sun-View Frame)
-    x_S = -sun';
-    x_S = x_S/norm(x_S);
-    z_S = cross([0;0;1], x_S);
-    if(norm(z_S)==0)
-        z_S = cross([0;1;0], x_S);
-    end
-    z_S = z_S/norm(z_S);
-    y_S = cross(z_S,x_S);
-    y_S = y_S/norm(y_S);
-    A_L2S = [x_S'; y_S'; z_S'];
-
-    % Chante the bodyVertices from LVLH to Sun-View Frame
-    for vertex=1:4
-        facePoints_S = (A_L2S * facePoints(vertex,:)')'; 
-        panelPoints_S = (A_L2S * panelPoints(vertex,:)')'; 
-        facePoints_sunDepth(vertex,:) = facePoints_S(1,1);
-        panelPoints_sunDepth(vertex,:) = panelPoints_S(1,1);
-    end
-
-    % Check if the Panel is before or after the face along the sun vector
-    if(mean(facePoints_sunDepth)<mean(panelPoints_sunDepth))
-        % not need to compute shadow, just return empty results
-        shadowFaceAreaRatio = 0;
-        shadowFaceVertices_L = [];
-        return;
-    end
-
     % Compute the intersection between the line that passes over each 
     % panel vertex along the sun vector and the plane that contains the
     % face
@@ -220,6 +191,8 @@ function [shadowFaceAreaRatio, shadowFaceVertices_L] = computeShadowProjectionPa
         % Compute intersection
         [I(vertex,:),rc] = line_plane_intersection(u, N, v, M);
     end
+
+
 
     if(rc == 1) % Point intersection (it forms a polygon)
         % Remove the third dimension

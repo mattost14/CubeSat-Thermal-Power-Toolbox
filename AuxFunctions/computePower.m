@@ -88,8 +88,8 @@ for i=1:length(time_Epoch)
             % ##### Power from Body-Fixed Solar Panels #####
             if(facesMaterial(n)=="Solar Panel")
                 if(param.computePwrWithShadowFlag && shadow.flag) % Check if user wants to consider shadow losses
-                    shadowLoss = 1 - shadow.shadowFaceAreaRatio(i,n);
-                    generatedPwr = generatedPwr + solarLight(i,n).(1) * solarFlux * facesArea(n) * solarCellEff(n) * effectiveAreaRatio(n) * shadow.shadowFaceAreaRatio(i,n) * shadowLoss;
+                    iluminatedAreaRatio = 1 - shadow.shadowFaceAreaRatio(i,n);
+                    generatedPwr = generatedPwr + solarLight(i,n).(1) * solarFlux * facesArea(n) * solarCellEff(n) * effectiveAreaRatio(n) * shadow.shadowFaceAreaRatio(i,n) * iluminatedAreaRatio;
                 else
                     generatedPwr = generatedPwr + solarLight(i,n).(1) * solarFlux * facesArea(n) * solarCellEff(n) * effectiveAreaRatio(n);
                 end
@@ -112,8 +112,8 @@ for i=1:length(time_Epoch)
                 numPanels = str2num(extractBefore(deployable.size(n), "P"));
 
                 if(param.computePwrWithShadowFlag && shadow.flag) % Check if user wants to consider shadow losses
-                    shadowLoss = 1 - shadow.shadowPanelAreaRatio(i,n);
-                    generatedPwr = generatedPwr + solarLight(i,idx).(1) * solarFlux * numPanels * facesArea(n) * deployable.solarCellEff(n) * deployable.effectiveAreaRatio(n) * shadowLoss;
+                    iluminatedAreaRatio = 1 - shadow.shadowPanelAreaRatio(i,n);
+                    generatedPwr = generatedPwr + solarLight(i,idx).(1) * solarFlux * numPanels * facesArea(n) * deployable.solarCellEff(n) * deployable.effectiveAreaRatio(n) * iluminatedAreaRatio;
                 else
                     generatedPwr = generatedPwr + solarLight(i,idx).(1) * solarFlux * numPanels * facesArea(n) * deployable.solarCellEff(n) * deployable.effectiveAreaRatio(n);
                 end
@@ -132,8 +132,8 @@ for i=1:length(time_Epoch)
                 numPanels = str2num(extractBefore(deployable.size(n), "P"));
 
                 if(param.computePwrWithShadowFlag && shadow.flag) % Check if user wants to consider shadow losses
-                    shadowLoss = 1 - shadow.shadowPanelAreaRatio(i,n);
-                    generatedPwr = generatedPwr + sind(theta) * solarFlux * numPanels * facesArea(n) * deployable.solarCellEff(n) * deployable.effectiveAreaRatio(n) * shadowLoss;
+                    iluminatedAreaRatio = 1 - shadow.shadowPanelAreaRatio(i,n);
+                    generatedPwr = generatedPwr + sind(theta) * solarFlux * numPanels * facesArea(n) * deployable.solarCellEff(n) * deployable.effectiveAreaRatio(n) * iluminatedAreaRatio;
                 else
                     generatedPwr = generatedPwr + sind(theta) * solarFlux * numPanels * facesArea(n) * deployable.solarCellEff(n) * deployable.effectiveAreaRatio(n);
                 end

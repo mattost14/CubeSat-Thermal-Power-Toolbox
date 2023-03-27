@@ -227,6 +227,7 @@ function faceIR = planetIRsimple(param)
 
 
     % Compute IR flux at each face
+    IR = zeros(length(param.pwr.viewFactor(:,1)), length(param.facesMaterial));
     for n=1:length(param.facesMaterial)
         IR(:,n) = param.pwr.viewFactor(:,n) .* Pir * param.emissivity(n) * param.facesArea(n);
     end
@@ -317,7 +318,7 @@ function faceIR = moonIRGradient(param)
                     QIR = qIRsubsolar(Lat_ss, param.Albedo, param.orb.solarFlux, moonEmissivity, param.Tir_Night); % units: W/m2
     
                     % Compute view factors for each face
-                    F = computeViewFactorPatch2Face(r_sat, v_sat, i_patch, Rmoon, param);
+                    F = computeViewFactorMoonPatch2Face(r_sat, v_sat, i_patch, Rmoon, param);
     
                     % Compute accumulated IR flux at each face
                     for n=1:6
@@ -357,7 +358,7 @@ function faceIR = moonIRGradient(param)
 
 end
 
-function F = computeViewFactorPatch2Face(r_sat, v_sat, i_patch, R, param)
+function F = computeViewFactorMoonPatch2Face(r_sat, v_sat, i_patch, R, param)
 
     % function that return angle between two vectors in degrees
     calculateAngleBetweenVectors = @(u,v) acosd(max(min(dot(u,v)/(norm(u)*norm(v)),1),-1));
@@ -429,11 +430,18 @@ function faceSolar = computeSolarRadiation(param)
 
     % Compute solar flux at each face
     for n=1:length(param.facesMaterial)
+
+        % Check if user wants to consider shadow losses)
+        iluminatedAreaRatio = 1;
+        if(param.computePwrWithShadowFlag && param.pwr.shadow.flag) 
+            iluminatedAreaRatio = 1 - param.pwr.shadow.shadowFaceAreaRatio(:,n);
+        end
+
         if(param.facesMaterial(n)=="Solar Panel") % If face is solar cell, check whether it is generating electrical energy or it is dissipating outside 
-            effectiveAbsoptivity =  param.absorptivity(n) - param.pwr.electricalEfficiency * param.solarCellEff(n);
-            solar(:,n) = param.pwr.solarLight.(n) .* solarFlux .* effectiveAbsoptivity * param.facesArea(n);
+            effectiveAbsoptivity =  min(param.absorptivity(n) - param.pwr.electricalEfficiency * param.solarCellEff(n),0);
+            solar(:,n) = iluminatedAreaRatio .* param.pwr.solarLight.(n) .* solarFlux .* effectiveAbsoptivity * param.facesArea(n);
         else
-            solar(:,n) = param.pwr.solarLight.(n) .* solarFlux * param.absorptivity(n) * param.facesArea(n);
+            solar(:,n) = iluminatedAreaRatio .* param.pwr.solarLight.(n) .* solarFlux * param.absorptivity(n) * param.facesArea(n);
         end
     end
 
