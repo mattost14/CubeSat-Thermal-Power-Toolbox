@@ -11,7 +11,7 @@ function faceSolar = computeSolarRadiation(param)
         end
 
         if(param.facesMaterial(n)=="Solar Panel") % If face is solar cell, check whether it is generating electrical energy or it is dissipating outside 
-            effectiveAbsoptivity =  min(param.absorptivity(n) - param.pwr.electricalEfficiency * param.solarCellEff(n),0);
+            effectiveAbsoptivity =  max(param.absorptivity(n) - param.pwr.electricalEfficiency * param.solarCellEff(n),0);
             solar(:,n) = iluminatedAreaRatio .* param.pwr.solarLight.(n) .* solarFlux .* effectiveAbsoptivity * param.facesArea(n);
         else
             solar(:,n) = iluminatedAreaRatio .* param.pwr.solarLight.(n) .* solarFlux * param.absorptivity(n) * param.facesArea(n);

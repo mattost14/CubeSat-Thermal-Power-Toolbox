@@ -1,6 +1,6 @@
 function thermalModel = prepareSimscapeModelInputs_v2(param)
     % ######## PREPARE SIMSCAPE simpleThermalModel MODEL ########
-    thermalModel.mdl = "simpleThermalModel";
+    thermalModel.mdl = "simpleThermalModel_v2";
 
     % Use a SimulationInput object to configure the model for our simulation.
     thermalModel.sim.in = Simulink.SimulationInput(thermalModel.mdl);
@@ -66,16 +66,24 @@ function thermalModel = prepareSimscapeModelInputs_v2(param)
         blk_AlbedoFlux, "VariableName",'param.thermal.faceAlbedo.Xplus');
 
     % Neighboor Faces Sub-block
-    blk_RXplusYplus = thermalModel.mdl + "/Face X+/Neighboor Faces/RX+Y+";
-    blk_RXplusYminus = thermalModel.mdl + "/Face X+/Neighboor Faces/RX+Y-";
-    blk_RXplusZplus = thermalModel.mdl + "/Face X+/Neighboor Faces/RX+Z+";
-    blk_RXplusZminus = thermalModel.mdl + "/Face X+/Neighboor Faces/RX+Z-";
+    blk_RXplusYplus = thermalModel.mdl + "/Face X+/RX+Y+";
+    blk_RXplusYminus = thermalModel.mdl + "/Face X+/RX+Y-";
+    blk_RXplusZplus = thermalModel.mdl + "/Face X+/RX+Z+";
+    blk_RXplusZminus = thermalModel.mdl + "/Face X+/RX+Z-";
+    blk_RBXplusYplus = thermalModel.mdl + "/Face X+/RBX+Y+";
+    blk_RBXplusYminus = thermalModel.mdl + "/Face X+/RBX+Y-";
+    blk_RBXplusZplus = thermalModel.mdl + "/Face X+/RBX+Z+";
+    blk_RBXplusZminus = thermalModel.mdl + "/Face X+/RBX+Z-";
 
     thermalModel.sim.in = thermalModel.sim.in.setBlockParameter(...
         blk_RXplusYplus, "resistance", string(param.resistanceInterFaces(faceId, 3)),...
         blk_RXplusYminus, "resistance", string(param.resistanceInterFaces(faceId, 4)),...
         blk_RXplusZplus, "resistance", string(param.resistanceInterFaces(faceId, 5)),...
-        blk_RXplusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)));
+        blk_RXplusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)), ...
+        blk_RBXplusYplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 3)),...
+        blk_RBXplusYminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 4)),...
+        blk_RBXplusZplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 5)),...
+        blk_RBXplusZminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 6)));
 
     % OuterLayer Sub-block
     blk_radiativeHeatTransfer = thermalModel.mdl + "/Face X+/OuterLayer/Radiative Heat Transfer";
@@ -114,16 +122,24 @@ function thermalModel = prepareSimscapeModelInputs_v2(param)
         blk_AlbedoFlux, "VariableName",'param.thermal.faceAlbedo.Xminus');
 
     % Neighboor Faces Sub-block
-    blk_RXminusYplus = thermalModel.mdl + "/Face X-/Neighboor Faces/RX-Y+";
-    blk_RXminusYminus = thermalModel.mdl + "/Face X-/Neighboor Faces/RX-Y-";
-    blk_RXminusZplus = thermalModel.mdl + "/Face X-/Neighboor Faces/RX-Z+";
-    blk_RXminusZminus = thermalModel.mdl + "/Face X-/Neighboor Faces/RX-Z-";
+    blk_RXminusYplus = thermalModel.mdl + "/Face X-/RX-Y+";
+    blk_RXminusYminus = thermalModel.mdl + "/Face X-/RX-Y-";
+    blk_RXminusZplus = thermalModel.mdl + "/Face X-/RX-Z+";
+    blk_RXminusZminus = thermalModel.mdl + "/Face X-/RX-Z-";
+    blk_RBXminusYplus = thermalModel.mdl + "/Face X-/RBX-Y+";
+    blk_RBXminusYminus = thermalModel.mdl + "/Face X-/RBX-Y-";
+    blk_RBXminusZplus = thermalModel.mdl + "/Face X-/RBX-Z+";
+    blk_RBXminusZminus = thermalModel.mdl + "/Face X-/RBX-Z-";
 
     thermalModel.sim.in = thermalModel.sim.in.setBlockParameter(...
         blk_RXminusYplus, "resistance", string(param.resistanceInterFaces(faceId, 3)),...
         blk_RXminusYminus, "resistance", string(param.resistanceInterFaces(faceId, 4)),...
         blk_RXminusZplus, "resistance", string(param.resistanceInterFaces(faceId, 5)),...
-        blk_RXminusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)));
+        blk_RXminusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)),...
+        blk_RBXminusYplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 3)),...
+        blk_RBXminusYminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 4)),...
+        blk_RBXminusZplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 5)),...
+        blk_RBXminusZminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 6)));
 
     % OuterLayer Sub-block
     blk_radiativeHeatTransfer = thermalModel.mdl + "/Face X-/OuterLayer/Radiative Heat Transfer";
@@ -162,16 +178,24 @@ function thermalModel = prepareSimscapeModelInputs_v2(param)
         blk_AlbedoFlux, "VariableName",'param.thermal.faceAlbedo.Yplus');
 
     % Neighboor Faces Sub-block
-    blk_RYplusXplus = thermalModel.mdl + "/Face Y+/Neighboor Faces/RY+X+";
-    blk_RYplusXminus = thermalModel.mdl + "/Face Y+/Neighboor Faces/RY+X-";
-    blk_RYplusZplus = thermalModel.mdl + "/Face Y+/Neighboor Faces/RY+Z+";
-    blk_RYplusZminus = thermalModel.mdl + "/Face Y+/Neighboor Faces/RY+Z-";
+    blk_RYplusXplus = thermalModel.mdl + "/Face Y+/RY+X+";
+    blk_RYplusXminus = thermalModel.mdl + "/Face Y+/RY+X-";
+    blk_RYplusZplus = thermalModel.mdl + "/Face Y+/RY+Z+";
+    blk_RYplusZminus = thermalModel.mdl + "/Face Y+/RY+Z-";
+    blk_RBYplusXplus = thermalModel.mdl + "/Face Y+/RBY+X+";
+    blk_RBYplusXminus = thermalModel.mdl + "/Face Y+/RBY+X-";
+    blk_RBYplusZplus = thermalModel.mdl + "/Face Y+/RBY+Z+";
+    blk_RBYplusZminus = thermalModel.mdl + "/Face Y+/RBY+Z-";
 
     thermalModel.sim.in = thermalModel.sim.in.setBlockParameter(...
         blk_RYplusXplus, "resistance", string(param.resistanceInterFaces(faceId, 1)),...
         blk_RYplusXminus, "resistance", string(param.resistanceInterFaces(faceId, 2)),...
         blk_RYplusZplus, "resistance", string(param.resistanceInterFaces(faceId, 5)),...
-        blk_RYplusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)));
+        blk_RYplusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)),...
+        blk_RBYplusXplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 1)),...
+        blk_RBYplusXminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 2)),...
+        blk_RBYplusZplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 5)),...
+        blk_RBYplusZminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 6)));
 
     % OuterLayer Sub-block
     blk_radiativeHeatTransfer = thermalModel.mdl + "/Face Y+/OuterLayer/Radiative Heat Transfer";
@@ -210,16 +234,24 @@ function thermalModel = prepareSimscapeModelInputs_v2(param)
         blk_AlbedoFlux, "VariableName",'param.thermal.faceAlbedo.Yminus');
 
     % Neighboor Faces Sub-block
-    blk_RYminusXplus = thermalModel.mdl + "/Face Y-/Neighboor Faces/RY-X+";
-    blk_RYminusXminus = thermalModel.mdl + "/Face Y-/Neighboor Faces/RY-X-";
-    blk_RYminusZplus = thermalModel.mdl + "/Face Y-/Neighboor Faces/RY-Z+";
-    blk_RYminusZminus = thermalModel.mdl + "/Face Y-/Neighboor Faces/RY-Z-";
+    blk_RYminusXplus = thermalModel.mdl + "/Face Y-/RY-X+";
+    blk_RYminusXminus = thermalModel.mdl + "/Face Y-/RY-X-";
+    blk_RYminusZplus = thermalModel.mdl + "/Face Y-/RY-Z+";
+    blk_RYminusZminus = thermalModel.mdl + "/Face Y-/RY-Z-";
+    blk_RBYminusXplus = thermalModel.mdl + "/Face Y-/RBY-X+";
+    blk_RBYminusXminus = thermalModel.mdl + "/Face Y-/RBY-X-";
+    blk_RBYminusZplus = thermalModel.mdl + "/Face Y-/RBY-Z+";
+    blk_RBYminusZminus = thermalModel.mdl + "/Face Y-/RBY-Z-";
 
     thermalModel.sim.in = thermalModel.sim.in.setBlockParameter(...
         blk_RYminusXplus, "resistance", string(param.resistanceInterFaces(faceId, 1)),...
         blk_RYminusXminus, "resistance", string(param.resistanceInterFaces(faceId, 2)),...
         blk_RYminusZplus, "resistance", string(param.resistanceInterFaces(faceId, 5)),...
-        blk_RYminusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)));
+        blk_RYminusZminus, "resistance", string(param.resistanceInterFaces(faceId, 6)),...
+        blk_RBYminusXplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 1)),...
+        blk_RBYminusXminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 2)),...
+        blk_RBYminusZplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 5)),...
+        blk_RBYminusZminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 6)));
 
     % OuterLayer Sub-block
     blk_radiativeHeatTransfer = thermalModel.mdl + "/Face Y-/OuterLayer/Radiative Heat Transfer";
@@ -258,16 +290,24 @@ function thermalModel = prepareSimscapeModelInputs_v2(param)
         blk_AlbedoFlux, "VariableName",'param.thermal.faceAlbedo.Zplus');
 
     % Neighboor Faces Sub-block
-    blk_RZplusXplus = thermalModel.mdl + "/Face Z+/Neighboor Faces/RZ+X+";
-    blk_RZplusXminus = thermalModel.mdl + "/Face Z+/Neighboor Faces/RZ+X-";
-    blk_RZplusYplus = thermalModel.mdl + "/Face Z+/Neighboor Faces/RZ+Y+";
-    blk_RZplusYminus = thermalModel.mdl + "/Face Z+/Neighboor Faces/RZ+Y-";
+    blk_RZplusXplus = thermalModel.mdl + "/Face Z+/RZ+X+";
+    blk_RZplusXminus = thermalModel.mdl + "/Face Z+/RZ+X-";
+    blk_RZplusYplus = thermalModel.mdl + "/Face Z+/RZ+Y+";
+    blk_RZplusYminus = thermalModel.mdl + "/Face Z+/RZ+Y-";
+    blk_RBZplusXplus = thermalModel.mdl + "/Face Z+/RBZ+X+";
+    blk_RBZplusXminus = thermalModel.mdl + "/Face Z+/RBZ+X-";
+    blk_RBZplusYplus = thermalModel.mdl + "/Face Z+/RBZ+Y+";
+    blk_RBZplusYminus = thermalModel.mdl + "/Face Z+/RBZ+Y-";
 
     thermalModel.sim.in = thermalModel.sim.in.setBlockParameter(...
         blk_RZplusXplus, "resistance", string(param.resistanceInterFaces(faceId, 1)),...
         blk_RZplusXminus, "resistance", string(param.resistanceInterFaces(faceId, 2)),...
         blk_RZplusYplus, "resistance", string(param.resistanceInterFaces(faceId, 3)),...
-        blk_RZplusYminus, "resistance", string(param.resistanceInterFaces(faceId, 4)));
+        blk_RZplusYminus, "resistance", string(param.resistanceInterFaces(faceId, 4)),...
+        blk_RBZplusXplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 1)),...
+        blk_RBZplusXminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 2)),...
+        blk_RBZplusYplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 3)),...
+        blk_RBZplusYminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 4)));
 
     % OuterLayer Sub-block
     blk_radiativeHeatTransfer = thermalModel.mdl + "/Face Z+/OuterLayer/Radiative Heat Transfer";
@@ -306,16 +346,24 @@ function thermalModel = prepareSimscapeModelInputs_v2(param)
         blk_AlbedoFlux, "VariableName",'param.thermal.faceAlbedo.Yminus');
 
     % Neighboor Faces Sub-block
-    blk_RZminusXplus = thermalModel.mdl + "/Face Z-/Neighboor Faces/RZ-X+";
-    blk_RZminusXminus = thermalModel.mdl + "/Face Z-/Neighboor Faces/RZ-X-";
-    blk_RZminusYplus = thermalModel.mdl + "/Face Z-/Neighboor Faces/RZ-Y+";
-    blk_RZminusYminus = thermalModel.mdl + "/Face Z-/Neighboor Faces/RZ-Y-";
+    blk_RZminusXplus = thermalModel.mdl + "/Face Z-/RZ-X+";
+    blk_RZminusXminus = thermalModel.mdl + "/Face Z-/RZ-X-";
+    blk_RZminusYplus = thermalModel.mdl + "/Face Z-/RZ-Y+";
+    blk_RZminusYminus = thermalModel.mdl + "/Face Z-/RZ-Y-";
+    blk_RBZminusXplus = thermalModel.mdl + "/Face Z-/RBZ-X+";
+    blk_RBZminusXminus = thermalModel.mdl + "/Face Z-/RBZ-X-";
+    blk_RBZminusYplus = thermalModel.mdl + "/Face Z-/RBZ-Y+";
+    blk_RBZminusYminus = thermalModel.mdl + "/Face Z-/RBZ-Y-";
 
     thermalModel.sim.in = thermalModel.sim.in.setBlockParameter(...
         blk_RZminusXplus, "resistance", string(param.resistanceInterFaces(faceId, 1)),...
         blk_RZminusXminus, "resistance", string(param.resistanceInterFaces(faceId, 2)),...
         blk_RZminusYplus, "resistance", string(param.resistanceInterFaces(faceId, 3)),...
-        blk_RZminusYminus, "resistance", string(param.resistanceInterFaces(faceId, 4)));
+        blk_RZminusYminus, "resistance", string(param.resistanceInterFaces(faceId, 4)),...
+        blk_RBZminusXplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 1)),...
+        blk_RBZminusXminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 2)),...
+        blk_RBZminusYplus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 3)),...
+        blk_RBZminusYminus, "resistance", string(param.resistanceInterFacesBlanket(faceId, 4)));
 
     % OuterLayer Sub-block
     blk_radiativeHeatTransfer = thermalModel.mdl + "/Face Z-/OuterLayer/Radiative Heat Transfer";

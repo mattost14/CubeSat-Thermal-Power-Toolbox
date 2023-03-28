@@ -86,12 +86,14 @@ app.param.deployable.flipFixedPanel = [0,0,0,0,0,0];
 app.param.resistanceBlanket = [0, 0, 0, 0, 0, 0];                   % Thermal resistance between face inner surface and the outer surface of the blanket K/W 
 app.param.facesBlanketMass = [1e-3, 1e-3, 1e-3, 1e-3, 1e-3, 1e-3];  % Blanket mass at each face (kg)
 app.param.facesBlanketCp = [130, 130, 130, 130, 130, 130];          % Gold specific heat to the blanket
+
 % The emissivity for the heat transfer though MLI is computed considering
 % the emissivity of the face surface (Aluminum - Rough) and the MLI
 e_Al = 0.07; e_MLI = 0.025;
 emissivity_Al2MLI = 1/(1/e_Al + 1/e_MLI - 1); % Ref.: Eq. (3) in https://www.sciencedirect.com/science/article/pii/S092145342030397X
 sigma = 5.67e-8; % Stefan-Boltzmann constant (W · m -2 · K -4 )
 app.param.kradBlanket = ones(1,6)*sigma*emissivity_Al2MLI; 
+app.param.resistanceInterFacesBlanket = ones(6,6) * 1e3;                   % Matrix of inter-faces (blanket) resistance K/W 
 
 % Face properties
 app.param.absorptivity = [getPropertiesFromMaterial(app.param.facesMaterial(1)).absorp,...
@@ -112,7 +114,7 @@ app.param.facesCp = [getPropertiesFromMaterial(app.param.facesMaterial(1)).Cp,..
                         getPropertiesFromMaterial(app.param.facesMaterial(4)).Cp,...
                         getPropertiesFromMaterial(app.param.facesMaterial(5)).Cp,...
                         getPropertiesFromMaterial(app.param.facesMaterial(6)).Cp]; 
-app.param.resistanceInterFaces = ones(6,6) * 1e3;                   % Matrix of inter-faces resistance K/W 
+app.param.resistanceInterFaces = ones(6,6) * 1e3;                   % Matrix of inter-faces (chassis) resistance K/W 
 
 % Update X+ face tab
 app.SurfaceTypeDropDownXplus.Items = itemList;

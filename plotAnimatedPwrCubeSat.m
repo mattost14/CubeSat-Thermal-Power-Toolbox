@@ -100,7 +100,11 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
                 faceXVector = shadeVertices(:,1);
                 faceYVector = shadeVertices(:,2);
                 faceZVector = shadeVertices(:,3);
-                fill3(appAxis, faceXVector + pushOut(faceXVector),faceYVector + pushOut(faceYVector),faceZVector + pushOut(faceZVector),shadowBodyColor)        
+                if(param.facesMaterial(n) == "Solar Panel")
+                    fill3(appAxis, faceXVector + pushOut(faceXVector),faceYVector + pushOut(faceYVector),faceZVector + pushOut(faceZVector),shadowSolarPanelColor) 
+                else
+                    fill3(appAxis, faceXVector + pushOut(faceXVector),faceYVector + pushOut(faceYVector),faceZVector + pushOut(faceZVector),shadowBodyColor) 
+                end       
             end
             % ## plot shaded area on panels
             shadeVertices = param.pwr.shadow.shadowPanelVertices_L{i,n};
@@ -109,9 +113,11 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
                 faceYVector = shadeVertices(:,2);
                 faceZVector = shadeVertices(:,3);
                 if(deployable.type(n) == "Tracking")
+                    % ## Shadow on Tracking Panels ##
                     [faceXVector, faceYVector, faceZVector] = pushOutFromTrackingPanel(faceXVector, faceYVector, faceZVector, Sun_L(i,:), "shadow");
                     fill3(appAxis, faceXVector,faceYVector,faceZVector,shadowSolarPanelColor)
                 else
+                    % ## Shadow on Fixed Panels ##
                     %If active face is under the sun, then shaded the red
                     %surface, otherwise shaded the cover on the back
                     flipFlag = deployable.flipFixedPanel(n);
