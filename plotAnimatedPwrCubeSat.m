@@ -19,7 +19,15 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
     deployable = param.deployable;
 
     % Get closest data point to user selected time
-    sampleTime = param.pwr.time_Epoch(2) - param.pwr.time_Epoch(1);
+    deltaT = diff(param.orb.prop.time_Epoch);
+    if(length(deltaT)>2)
+        if(deltaT(1) == deltaT(2)) % Constant sample time
+             sampleTime = deltaT(1);
+        else
+            return;
+        end
+    end
+   
     time = round(t/sampleTime)*sampleTime;
 
 
@@ -95,7 +103,9 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
         % ### Shadow if computed sucessfully ###
         if(param.computePwrWithShadowFlag && param.pwr.shadow.flag)
             % ## plot shaded area on body faces
+  
             shadeVertices = param.pwr.shadow.shadowFaceVertices_L{i,n};
+
             if(~isempty(shadeVertices))
                 faceXVector = shadeVertices(:,1);
                 faceYVector = shadeVertices(:,2);
@@ -258,9 +268,9 @@ function [faceXVector, faceYVector, faceZVector] = pushOutFromTrackingPanel(face
         end
     end
 
-    faceXVector = faceXVector + 0.02 * panelNormalVector(1);
-    faceYVector = faceYVector + 0.02 * panelNormalVector(2);
-    faceZVector = faceZVector + 0.02 * panelNormalVector(3);
+    faceXVector = faceXVector + 0.04 * panelNormalVector(1);
+    faceYVector = faceYVector + 0.04 * panelNormalVector(2);
+    faceZVector = faceZVector + 0.04 * panelNormalVector(3);
 
 end
 

@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3128396950" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3035957734" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
     <param.appname>CubeSat Thermal Power Toolbox</param.appname>
     <param.authnamewatermark>Bruno Mattos</param.authnamewatermark>
     <param.email />
@@ -21,7 +21,7 @@
 
 4) Run thermal analysis using a Lumped Parameter Model (LPM)</param.description>
     <param.screenshot>/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox_Installers/Figures/ModelTab.png</param.screenshot>
-    <param.version>1.0.3.1</param.version>
+    <param.version>1.1</param.version>
     <param.products.name>
       <item>MATLAB</item>
       <item>Simulink</item>
@@ -37,11 +37,11 @@
       <item>104</item>
     </param.products.id>
     <param.products.version>
-      <item>9.12</item>
-      <item>10.5</item>
-      <item>5.2</item>
-      <item>4.2</item>
+      <item>9.13</item>
+      <item>10.6</item>
       <item>5.3</item>
+      <item>4.3</item>
+      <item>5.4</item>
     </param.products.version>
     <param.platforms />
     <param.output>${PROJECT_ROOT}</param.output>
@@ -57,6 +57,12 @@
     </fileset.main>
     <fileset.depfun>
       <file>${PROJECT_ROOT}/AppIconCubeSat.png</file>
+      <file>${PROJECT_ROOT}/computeFaceSolarLight.m</file>
+      <file>${PROJECT_ROOT}/computeShadowFactors.m</file>
+      <file>${PROJECT_ROOT}/getCubeSatAttitude.m</file>
+      <file>${PROJECT_ROOT}/getVerticesPoints.m</file>
+      <file>${PROJECT_ROOT}/line_plane_intersection.m</file>
+      <file>${PROJECT_ROOT}/plotAnimatedPwrCubeSat.m</file>
     </fileset.depfun>
     <fileset.resources>
       <file>${PROJECT_ROOT}/AuxFunctions</file>
@@ -64,8 +70,9 @@
       <file>${PROJECT_ROOT}/Icons</file>
       <file>${PROJECT_ROOT}/OrbitPropagators</file>
       <file>${PROJECT_ROOT}/PlotFunctions</file>
+      <file>${PROJECT_ROOT}/Power</file>
       <file>${PROJECT_ROOT}/Textures</file>
-      <file>${PROJECT_ROOT}/ThermalModelsSimscape</file>
+      <file>${PROJECT_ROOT}/Thermal</file>
       <file>${PROJECT_ROOT}/initializeParameters.m</file>
     </fileset.resources>
     <fileset.package />
@@ -74,38 +81,14 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2022a.app</root>
+      <root>/Applications/MATLAB_R2022b.app</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
-        <toolbox name="embeddedcoder" />
-        <toolbox name="fixedpoint" />
-        <toolbox name="matlabhdlcoder" />
-        <toolbox name="neuralnetwork" />
       </toolboxes>
       <toolbox>
         <matlabcoder>
           <enabled>true</enabled>
         </matlabcoder>
-      </toolbox>
-      <toolbox>
-        <embeddedcoder>
-          <enabled>true</enabled>
-        </embeddedcoder>
-      </toolbox>
-      <toolbox>
-        <fixedpoint>
-          <enabled>true</enabled>
-        </fixedpoint>
-      </toolbox>
-      <toolbox>
-        <matlabhdlcoder>
-          <enabled>true</enabled>
-        </matlabhdlcoder>
-      </toolbox>
-      <toolbox>
-        <neuralnetwork>
-          <enabled>true</enabled>
-        </neuralnetwork>
       </toolbox>
     </matlab>
     <platform>
