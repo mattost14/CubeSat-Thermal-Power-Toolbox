@@ -442,10 +442,13 @@ function setupAppObjects(app)
         case "Day/Night"
             app.PwrNightWSpinner.Enable = "on";
     end
-    % ### Update Dissipation Profile Plot
-    plotPwrConsumption(app.UIAxesPwrConsumption, app.param.orb.prop.time_Epoch, app.param.orb.prop.sunMagnitude, app.param.pwrDissipationDaySimpleModel, app.param.pwrDissipationNightSimpleModel, app.param.pwrDissipationProfile)
+    % ### Update Dissipation Profile Plot if data available
+    if(app.param.orb.prop.flag)
+        plotPwrConsumption(app.UIAxesPwrConsumption, app.param.orb.prop.time_Epoch, app.param.orb.prop.sunMagnitude, app.param.pwrDissipationDaySimpleModel, app.param.pwrDissipationNightSimpleModel, app.param.pwrDissipationProfile)
+    end
     app.ComputePowerStatusLabel.Text = '';
-
+    % Update the "Compute Shadow" Checkbox
+    app.ConsidershadowsCheckBox.Value = app.param.computePwrWithShadowFlag;
     %% ### Thermal Tab ###
     app.ComputeThermalStatusLabel.Text = '';
 end

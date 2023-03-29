@@ -96,7 +96,7 @@ for i=1:length(time_Epoch)
             if(facesMaterial(n)=="Solar Panel")
                 if(param.computePwrWithShadowFlag && shadow.flag) % Check if user wants to consider shadow losses
                     iluminatedAreaRatio = 1 - shadow.shadowFaceAreaRatio(i,n);
-                    generatedPwr = generatedPwr + solarLight(i,n).(1) * solarFlux * facesArea(n) * solarCellEff(n) * effectiveAreaRatio(n) * shadow.shadowFaceAreaRatio(i,n) * iluminatedAreaRatio;
+                    generatedPwr = generatedPwr + solarLight(i,n).(1) * solarFlux * facesArea(n) * solarCellEff(n) * effectiveAreaRatio(n) * iluminatedAreaRatio;
                 else
                     generatedPwr = generatedPwr + solarLight(i,n).(1) * solarFlux * facesArea(n) * solarCellEff(n) * effectiveAreaRatio(n);
                 end

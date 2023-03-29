@@ -67,13 +67,15 @@ app.param.facesMaterial = [itemList(1), itemList(1), itemList(1), itemList(1), i
 app.param.satelliteMass = 1;
 app.param.solarCellEff = [.28, .28, .28, .28, .28, .28];
 app.param.effectiveAreaRatio = [.6, .6, .6, .6, .6, .6];
-app.param.resistance = [1, 1, 1, 1, 1, 1]; % K/W 
+app.param.conductionResistance1U = 20;   % K/W That is a estimated of the thermal resistance between the internal node and each 1U face
+app.param.resistance = ones(1,6)*app.param.conductionResistance1U; % K/W 
 app.param.internalNodeCp = 903; %J/kg/K
 app.param.internalNode2TotalMassRatio = .7;
 app.param.facesMassDistribution = [1/6, 1/6, 1/6, 1/6, 1/6, 1/6]; 
 app.param.facesArea = [1/6, 1/6, 1/6, 1/6, 1/6, 1/6]*(6*(0.1*0.1));
 app.param.attitude.nadirFace = "X+";
 app.param.attitude.ramFace = "Y+";
+app.param.attitude.ramFaceItems = ["Y+", "Y-", "Z+", "Z-"];
 app.param.deployable.type = ["None"; "None"; "None"; "None"; "None"; "None"];
 app.param.deployable.hinge = ["X+ | Y+"; "X- | Y+"; "Y+ | X+"; "Y- | X+"; "Z+ | X+"; "Z- | X+"];
 app.param.deployable.size = ["1P"; "1P"; "1P"; "1P"; "1P"; "1P"];
@@ -84,15 +86,15 @@ app.param.deployable.flipFixedPanel = [0,0,0,0,0,0];
 
 % Insulator (Blanket) Properties
 app.param.resistanceBlanket = [0, 0, 0, 0, 0, 0];                   % Thermal resistance between face inner surface and the outer surface of the blanket K/W 
-app.param.facesBlanketMass = [1e-3, 1e-3, 1e-3, 1e-3, 1e-3, 1e-3];  % Blanket mass at each face (kg)
-app.param.facesBlanketCp = [130, 130, 130, 130, 130, 130];          % Gold specific heat to the blanket
+app.param.facesBlanketMass = 1e-5 * ones(1,6);                      % Blanket mass at each face (kg)
+app.param.facesBlanketCp = 130 * ones(1,6);                         % Gold specific heat to the blanket
 
 % The emissivity for the heat transfer though MLI is computed considering
 % the emissivity of the face surface (Aluminum - Rough) and the MLI
 e_Al = 0.07; e_MLI = 0.025;
 emissivity_Al2MLI = 1/(1/e_Al + 1/e_MLI - 1); % Ref.: Eq. (3) in https://www.sciencedirect.com/science/article/pii/S092145342030397X
 sigma = 5.67e-8; % Stefan-Boltzmann constant (W · m -2 · K -4 )
-app.param.kradBlanket = ones(1,6)*sigma*emissivity_Al2MLI; 
+app.param.kradFace2Blanket = ones(1,6)*sigma*emissivity_Al2MLI; 
 app.param.resistanceInterFacesBlanket = ones(6,6) * 1e3;                   % Matrix of inter-faces (blanket) resistance K/W 
 
 % Face properties
@@ -255,6 +257,12 @@ app.SpinnerRYplus.Tooltip = "Thermal resistance between the internal nodel and t
 app.SpinnerRYminus.Tooltip = "Thermal resistance between the internal nodel and the Y- face";
 app.SpinnerRZplus.Tooltip = "Thermal resistance between the internal nodel and the Z+ face";
 app.SpinnerRZminus.Tooltip = "Thermal resistance between the internal nodel and the Z- face";
+app.SpinnerRXplus.Value = app.param.resistance(1);
+app.SpinnerRXminus.Value = app.param.resistance(2);
+app.SpinnerRYplus.Value = app.param.resistance(3);
+app.SpinnerRYminus.Value = app.param.resistance(4);
+app.SpinnerRZplus.Value = app.param.resistance(5);
+app.SpinnerRZminus.Value = app.param.resistance(6);
 app.ThermalResistanceImage.ImageSource = "Figures/ThermalModel7NodesSchematic.png";
 
 
