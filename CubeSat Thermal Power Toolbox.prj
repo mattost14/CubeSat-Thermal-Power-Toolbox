@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3035957734" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1910810168" file="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox/CubeSat Thermal Power Toolbox.prj" location="/Users/BrunoMattos/Documents/UNIVERSITY/RESEARCH/CubeSatThermalPowerToolbox" name="CubeSat Thermal Power Toolbox" target="target.mlapps" target-name="Package App">
     <param.appname>CubeSat Thermal Power Toolbox</param.appname>
     <param.authnamewatermark>Bruno Mattos</param.authnamewatermark>
     <param.email />
@@ -57,12 +57,6 @@
     </fileset.main>
     <fileset.depfun>
       <file>${PROJECT_ROOT}/AppIconCubeSat.png</file>
-      <file>${PROJECT_ROOT}/computeFaceSolarLight.m</file>
-      <file>${PROJECT_ROOT}/computeShadowFactors.m</file>
-      <file>${PROJECT_ROOT}/getCubeSatAttitude.m</file>
-      <file>${PROJECT_ROOT}/getVerticesPoints.m</file>
-      <file>${PROJECT_ROOT}/line_plane_intersection.m</file>
-      <file>${PROJECT_ROOT}/plotAnimatedPwrCubeSat.m</file>
     </fileset.depfun>
     <fileset.resources>
       <file>${PROJECT_ROOT}/AuxFunctions</file>
