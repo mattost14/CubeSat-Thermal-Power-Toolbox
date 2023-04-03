@@ -10,7 +10,7 @@ sat.SemiMajorAxis  = orb.semiMajorAxis*1e3;     % [m]
 sat.Eccentricity   = orb.eccentricity;
 sat.Inclination    = orb.inclination;    % [deg]
 sat.RAAN           = orb.RAAN;    % [deg]
-sat.ArgOfPeriapsis = orb.RAAN;    % [deg]
+sat.ArgOfPeriapsis = orb.argumentOfPeriapsis;    % [deg]
 sat.TrueAnomaly    = orb.trueAnomaly;      % [deg]
 
 %% Configure the Model
@@ -113,6 +113,9 @@ try
     % Sun position x,y,z at Moon-Centered (Inertial) frame
     sun_I = planetEphemeris(time_Julian,'Moon','Sun'); % units: km
 
+    % Earth position x,y,z at Moon-Centered (Inertial) frame
+    earth_I = planetEphemeris(time_Julian,'Moon','Earth'); % units: km
+
 
     % Convert to Moon Fixed Frame
     moonAngles = moonLibration(time_Julian, '421');
@@ -162,15 +165,28 @@ try
 %     r_I = sat.r_I.Data;
     distance_Sat2MoonCenter = sqrt(r_I(:,1).^2+r_I(:,2).^2+r_I(:,3).^2); % (km)
     thetaSat2MoonTangent = asind((moon.R_eq/1e3)./distance_Sat2MoonCenter);
+
+    % Earth blocking (Eclipse)
+    distance_Sat2EarthCenter = sqrt(earth_I(:,1).^2 + earth_I(:,2).^2 + earth_I(:,3).^2); % km
+    thetaSat2EarthTangent = asind((earthRadius/1e3)./distance_Sat2EarthCenter);
     
     calculateAngleBetweenVectors = @(u,v) acosd(max(min(dot(u,v)/(norm(u)*norm(v)),1),-1)); % function that return angle between two vectors in degrees
     
     sunMagnitude = ones(length(time_Epoch),1);
+    eclipseFlag = zeros(length(time_Epoch),1);
     for i=1:length(time_Epoch)
         sat2sun_I = sun_I - r_I;
+        sat2earth_I = earth_I - r_I;
         angle_Sat2Sun_Sat2Moon = calculateAngleBetweenVectors(sat2sun_I(i,:),-r_I(i,:));
         if angle_Sat2Sun_Sat2Moon > thetaSat2MoonTangent(i)
-            sunMagnitude(i) = 1;
+            % Check if earth is blocking the Sun or not (Eclipse check)
+            angle_Sat2Sun_Sat2Earth = calculateAngleBetweenVectors(sat2sun_I(i,:),sat2earth_I(i,:));
+            if(angle_Sat2Sun_Sat2Earth > thetaSat2EarthTangent(i))
+                sunMagnitude(i) = 1;
+            else
+                sunMagnitude(i) = 0;    % Earth is blocking the Sun (Eclipse)
+                eclipseFlag(i) = 1;
+            end
         else 
             sunMagnitude(i) = 0;
         end
@@ -223,6 +239,7 @@ try
     propData.limbAngle = thetaSat2MoonTangent;
     propData.centralBodyRadius = moon.R_eq; 
     propData.betaAngle = betaAngle;
+    propData.eclipseFlag = eclipseFlag;
     
 catch ME
     warning(ME.message);
