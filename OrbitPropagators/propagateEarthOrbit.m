@@ -31,12 +31,13 @@ function [propData, flag] = propagateEarthOrbit(orb)
         v_I = (v_I')./1e3; % m/s -> km/s
     
         % Sun position x,y,z at ECI (Inertial) frame
-        [sun_I, sunV_I] = planetEphemeris(time_Julian,'Earth','Sun'); % units: km
+        [sun_I, ~] = planetEphemeris(time_Julian,'Earth','Sun'); % units: km
 
-        % Convert sun vector from ECI to ECEF
+        % Convert sun vector from ECI to ECEF (Much faster than using the eci2ecef function)
         sun_ff = zeros(size(sun_I));
+        A_ECI2ECEF = dcmeci2ecef('IAU-2000/2006',time_UTC); 
         for i=1:length(time_Julian)
-            [sun_f, ~] = eci2ecef(time_UTC(i), sun_I(i,:), sunV_I(i,:));
+            sun_f = A_ECI2ECEF(:,:,i) * sun_I(i,:)';
             sun_ff(i,:) = sun_f / norm(sun_f);
         end
         
