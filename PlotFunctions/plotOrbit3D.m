@@ -9,7 +9,7 @@ cla(appAxis);
             C = imread('Textures/earthGlobe.png');
             R = 6378.135;
             [x, y, z] = ellipsoid(0,0,0, R, R, R,1E2);
-            surf(appAxis, x,y,z,circshift(flip(C),[0,ceil(size(C,2)/360)]), 'FaceColor', 'texturemap','EdgeColor','none');
+            surf(appAxis, x,y,z,circshift(flip(C),[0,ceil(size(C,2)*0/360)]), 'FaceColor', 'texturemap','EdgeColor','none');
         case "Moon"
             C = imread('Textures/moonGlobe.png','png');
             if(size(C,3)==1)
@@ -17,7 +17,7 @@ cla(appAxis);
             end
             R = 1737.4;
             [x, y, z] = ellipsoid(0,0,0, R, R, R,1E2);
-            surf(appAxis, x,y,z,circshift(flip(C),[0,ceil(size(C,2)/360)]), 'FaceColor', 'texturemap','EdgeColor','none');
+            surf(appAxis, x,y,z,circshift(flip(C),[0,ceil(size(C,2)*180/360)]), 'FaceColor', 'texturemap','EdgeColor','none');
     end
 
     hold(appAxis, 'on')
