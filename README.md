@@ -60,7 +60,7 @@ When the satellite is charging the battery, the satellite faces with body-fixed 
 
 ## Step 4) Run Thermal Analysis
 
-The tool offers the total accumulated radiation input coming from Sthe un, central body IR, and Albedo reflection.
+The tool offers the total accumulated radiation input coming from the Sun, central body IR, and Albedo reflection.
 
 Finally, the internal node temperature and the faces nodes temperatures are plotted.
 
