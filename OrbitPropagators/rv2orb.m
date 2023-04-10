@@ -87,14 +87,15 @@ else
     a(idx) = Inf; 
     p(idx) = (hMag(idx).^2)./mu; 
 end
+minmax = @(x) max(min(x,1),-1); % restricts input X between 1 and -1
 %Compute the angles
-i = acos(h(3,:)./hMag); 
-O = acos(n(1,:)./nMag);
-o = acos(dot(n,e)./(nMag.*eMag));
-nu = acos(dot(e,r)./(eMag.*rMag));
-lonPer = acos(e(1,:)./eMag);
-argLat = acos(dot(n,r)./(nMag.*rMag));
-truLon = acos(r(1,:)./rMag);
+i = acos(minmax(h(3,:)./hMag)); 
+O = acos(minmax(n(1,:)./nMag));
+o = acos(minmax(dot(n,e)./(nMag.*eMag)));
+nu = acos(minmax(dot(e,r)./(eMag.*rMag)));
+lonPer = acos(minmax(e(1,:)./eMag));
+argLat = acos(minmax(dot(n,r)./(nMag.*rMag)));
+truLon = acos(minmax(r(1,:)./rMag));
 %Account for those cases where satellite is in circular orbit
          O(n(1,:) == 0) = 0;
        o(dot(n,e) == 0) = 0;
