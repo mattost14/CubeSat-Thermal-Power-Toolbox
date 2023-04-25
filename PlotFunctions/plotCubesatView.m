@@ -48,8 +48,6 @@ function plotCubesatView(param, appAxis)
     q=quiver3(appAxis, [0],[0],[0],v(1),v(2),v(3), 'Color','r','LineWidth',5);
     text(appAxis, v(1),v(2),v(3),'Ram','HorizontalAlignment','left','FontSize',12, 'Color','r');
 
-
-    
     
     axis(appAxis, "equal");
     axis(appAxis, "off");
