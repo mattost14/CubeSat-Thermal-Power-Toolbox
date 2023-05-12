@@ -31,13 +31,17 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
             plot(appAxis, timeAbsorbedIR/3600, totalAbsorbedIR, 'b', "DisplayName", "Total absorbed IR");
             xL=appAxis.XLim;
             yL=appAxis.YLim;
-            text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+            text(appAxis, 0.5,1,strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+
+%             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         elseif(~plotAbsorbedIRFlag && plotRadiatedIRFlag) % Only Radiate IR
             hold(appAxis,"on");
             plot(appAxis, timeRadiatedIR/3600, totalRadiatedIR, 'r', "DisplayName", "Total radiated IR");
             xL=appAxis.XLim;
             yL=appAxis.YLim;
-            text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgRadiatedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+            text(appAxis,0.5, 1,strcat("\mu = ", num2str(avgRadiatedRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+
+%             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgRadiatedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         else  % Both
             plot(appAxis, timeAbsorbedIR/3600, totalAbsorbedIR, 'b', "DisplayName", "Total absorbed IR");
             hold(appAxis,"on");
@@ -45,7 +49,9 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
             
             xL=appAxis.XLim;
             yL=appAxis.YLim;
-            text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu_{abs} = ", num2str(avgAbsorbedRadiation,2), " W; ", "\mu_{rad} = ", num2str(avgRadiatedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+            text(appAxis, 0.5, 1,strcat("\mu_{abs} = ", num2str(avgAbsorbedRadiation,2), " W; ", "\mu_{rad} = ", num2str(avgRadiatedRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+
+%             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu_{abs} = ", num2str(avgAbsorbedRadiation,2), " W; ", "\mu_{rad} = ", num2str(avgRadiatedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         end
     else
         if(plotAbsorbedIRFlag)
@@ -59,7 +65,9 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
 
             xL=appAxis.XLim;
             yL=appAxis.YLim;
-            text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+            text(appAxis, 0.5, 1, strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+
+%             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         else
             hold(appAxis,"on");
             plot(appAxis, timeRadiatedIR/3600, thermal.out.XplusIRfluxOut.Data(:), "DisplayName", "X+", "Color","red");
@@ -71,10 +79,12 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
 
             xL=appAxis.XLim;
             yL=appAxis.YLim;
-            text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu_{rad} = ", num2str(avgRadiatedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+            text(appAxis, 0.5, 1,strcat("\mu_{rad} = ", num2str(avgRadiatedRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+
+%             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu_{rad} = ", num2str(avgRadiatedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         end
     end
-    legend(appAxis);
+    legend(appAxis,'ItemHitFcn',@toggleLegend);
     ylabel(appAxis, "Flux (W)")
     xlabel(appAxis, "Epoch (hour)")
     grid(appAxis,"on")

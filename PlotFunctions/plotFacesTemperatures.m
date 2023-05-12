@@ -19,7 +19,7 @@ function plotFacesTemperatures(appAxis, thermal)
     plot(appAxis, time/3600, tempZplus_C,  "DisplayName", "Z+", "Color","magenta");
     plot(appAxis, time/3600, tempZminus_C,  "DisplayName", "Z-", "Color","#EDB120");
 
-    legend(appAxis);
+    legend(appAxis,'ItemHitFcn',@toggleLegend);
     ylabel(appAxis, "Temp (oC)")
     xlabel(appAxis, "Epoch (hour)")
     grid(appAxis,"on")

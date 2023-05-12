@@ -26,7 +26,7 @@ function plotSolarRadiationInput(appAxis, thermal, plotAllFacesFlag)
         plot(appAxis, time/3600, thermal.faceSolar.Zplus.(1),  "DisplayName", "Z+", "Color","magenta");
         plot(appAxis, time/3600, thermal.faceSolar.Zminus.(1),  "DisplayName", "Z-", "Color","#EDB120");
     end
-    legend(appAxis);
+    legend(appAxis,'ItemHitFcn',@toggleLegend);
     ylabel(appAxis, "Flux (W)")
     xlabel(appAxis, "Epoch (hour)")
     grid(appAxis,"on")
@@ -34,6 +34,8 @@ function plotSolarRadiationInput(appAxis, thermal, plotAllFacesFlag)
     
     xL=appAxis.XLim;
     yL=appAxis.YLim;
-    text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+    text(appAxis, 0.5,1,strcat("\mu = ", num2str(avgRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
+
+%     text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
 
 end
