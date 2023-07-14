@@ -2,7 +2,7 @@ function plotBatteryDepletion(appAxis, pwr)
 %PLOTSUNLIGHT Summary of this function goes here
 %   Detailed explanation goes here
     cla(appAxis)
-    plot(appAxis, pwr.time_Epoch/3600, -pwr.energyDrawnFromBat_Wh, 'b');
+    plot(appAxis, pwr.time_Epoch/3600, -pwr.energyDrawnFromBat_Wh, 'b',"LineWidth",2);
 %     legend(appAxis)
     xlabel(appAxis, "Epoch (hour)")
     ylabel(appAxis, "Energy (Wh)")

@@ -16,15 +16,15 @@ function plotSolarRadiationInput(appAxis, thermal, plotAllFacesFlag)
 
     cla(appAxis)
     if(~plotAllFacesFlag)
-        plot(appAxis, time/3600, totalSolar, 'b', "DisplayName", "Total");
+        plot(appAxis, time/3600, totalSolar, 'b', "DisplayName", "Total","LineWidth",2);
     else
         hold(appAxis,"on");
-        plot(appAxis, time/3600, thermal.faceSolar.Xplus.(1), "DisplayName", "X+", "Color","red");
-        plot(appAxis, time/3600, thermal.faceSolar.Xminus.(1), "DisplayName", "X-", "Color","green");
-        plot(appAxis, time/3600, thermal.faceSolar.Yplus.(1),  "DisplayName", "Y+", "Color","blue");
-        plot(appAxis, time/3600, thermal.faceSolar.Yminus.(1),  "DisplayName", "Y-", "Color","cyan");
-        plot(appAxis, time/3600, thermal.faceSolar.Zplus.(1),  "DisplayName", "Z+", "Color","magenta");
-        plot(appAxis, time/3600, thermal.faceSolar.Zminus.(1),  "DisplayName", "Z-", "Color","#EDB120");
+        plot(appAxis, time/3600, thermal.faceSolar.Xplus.(1), "DisplayName", "X+", "Color","red","LineWidth",2);
+        plot(appAxis, time/3600, thermal.faceSolar.Xminus.(1), "DisplayName", "X-", "Color","green","LineWidth",2);
+        plot(appAxis, time/3600, thermal.faceSolar.Yplus.(1),  "DisplayName", "Y+", "Color","blue","LineWidth",2);
+        plot(appAxis, time/3600, thermal.faceSolar.Yminus.(1),  "DisplayName", "Y-", "Color","cyan","LineWidth",2);
+        plot(appAxis, time/3600, thermal.faceSolar.Zplus.(1),  "DisplayName", "Z+", "Color","magenta","LineWidth",2);
+        plot(appAxis, time/3600, thermal.faceSolar.Zminus.(1),  "DisplayName", "Z-", "Color","#EDB120","LineWidth",2);
     end
     legend(appAxis,'ItemHitFcn',@toggleLegend);
     ylabel(appAxis, "Flux (W)")

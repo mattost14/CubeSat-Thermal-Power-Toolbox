@@ -9,10 +9,9 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
     attitude.ZplusFaceVector_LVLH = param.pwr.ZplusFaceVector_LVLH;
 
 
-
+    % Color definitions
     shadowBodyColor = [.4 .4 .4];
     iluminatedBodyColor = [.9 .9 .9];
-
     iluminatedSolarPanelColor = [1 0 0];
     shadowSolarPanelColor = [0.4 0.1 0.1];
     
@@ -35,6 +34,7 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
 
     cla(appAxis);
     hold(appAxis,"on")
+    faceText = ["X+","X-","Y+","Y-","Z+","Z-"];
     for n=1:6
         % ## plot cubesat faces ##
         faceX = reshape(faceVertices_L(:,1,n),[2,2]);
@@ -53,6 +53,11 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
                 surf(appAxis, faceX, faceY, faceZ,"FaceColor",shadowBodyColor,"EdgeColor","k")
             end
         end
+        % Face label
+        textPosition = [mean(faceX,"all"), mean(faceY,"all"),  mean(faceZ,"all")];
+        textPosition(textPosition~=0) = textPosition(textPosition~=0)*1.4;
+        text(appAxis, textPosition(1), textPosition(2), textPosition(3),strcat(faceText(n)),'HorizontalAlignment','left',"FontSize",20)
+
         % ## plot cubesat fixed panels ##
         if(~all(fixedDeployableVertices_L(:,:,n)==0,"all"))
             faceXVector = fixedDeployableVertices_L(:,1,n);
@@ -156,7 +161,8 @@ function plotAnimatedPwrCubeSat(param, appAxis, t)
     if(param.pwr.flag)
         numH = floor(time/3600);
         numM = round((time - 3600*numH)/60);
-        title(appAxis, strcat("t = ", num2str(numH,2), ':',num2str(numM,'%02d'), "  P = ", num2str(param.pwr.generatedTotalPower(i),2), " W"),'FontWeight','normal', 'BackgroundColor','none');
+        title(appAxis, strcat("t = ", num2str(numH,2), ':',num2str(numM,'%02d'), "  P = ", num2str(param.pwr.generatedTotalPower(i),2), " W"),'FontWeight','bold', 'BackgroundColor','none');
+%         text(appAxis, 0.8, 1,strcat("t = ", num2str(numH,2), ':',num2str(numM,'%02d'), "  P = ", num2str(param.pwr.generatedTotalPower(i),2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"none");
     end
 
 end

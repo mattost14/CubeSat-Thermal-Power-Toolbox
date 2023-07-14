@@ -12,12 +12,12 @@ function plotFacesTemperatures(appAxis, thermal)
 
     cla(appAxis)
     hold(appAxis, "on")
-    plot(appAxis, time/3600, tempXplus_C, "DisplayName", "X+", "Color","red");
-    plot(appAxis, time/3600, tempXminus_C, "DisplayName", "X-", "Color","green");
-    plot(appAxis, time/3600, tempYplus_C,  "DisplayName", "Y+", "Color","blue");
-    plot(appAxis, time/3600, tempYminus_C,  "DisplayName", "Y-", "Color","cyan");
-    plot(appAxis, time/3600, tempZplus_C,  "DisplayName", "Z+", "Color","magenta");
-    plot(appAxis, time/3600, tempZminus_C,  "DisplayName", "Z-", "Color","#EDB120");
+    plot(appAxis, time/3600, tempXplus_C, "DisplayName", "X+", "Color","red","LineWidth",2);
+    plot(appAxis, time/3600, tempXminus_C, "DisplayName", "X-", "Color","green","LineWidth",2);
+    plot(appAxis, time/3600, tempYplus_C,  "DisplayName", "Y+", "Color","blue","LineWidth",2);
+    plot(appAxis, time/3600, tempYminus_C,  "DisplayName", "Y-", "Color","cyan","LineWidth",2);
+    plot(appAxis, time/3600, tempZplus_C,  "DisplayName", "Z+", "Color","magenta","LineWidth",2);
+    plot(appAxis, time/3600, tempZminus_C,  "DisplayName", "Z-", "Color","#EDB120","LineWidth",2);
 
     legend(appAxis,'ItemHitFcn',@toggleLegend);
     ylabel(appAxis, "Temp (oC)")

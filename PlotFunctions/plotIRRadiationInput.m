@@ -28,7 +28,7 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
     cla(appAxis)
     if(~plotAllFacesFlag)
         if(plotAbsorbedIRFlag && ~plotRadiatedIRFlag) % Only Absorbed IR
-            plot(appAxis, timeAbsorbedIR/3600, totalAbsorbedIR, 'b', "DisplayName", "Total absorbed IR");
+            plot(appAxis, timeAbsorbedIR/3600, totalAbsorbedIR, 'b', "DisplayName", "Total absorbed IR","LineWidth",2);
             xL=appAxis.XLim;
             yL=appAxis.YLim;
             text(appAxis, 0.5,1,strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
@@ -36,16 +36,16 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
 %             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         elseif(~plotAbsorbedIRFlag && plotRadiatedIRFlag) % Only Radiate IR
             hold(appAxis,"on");
-            plot(appAxis, timeRadiatedIR/3600, totalRadiatedIR, 'r', "DisplayName", "Total radiated IR");
+            plot(appAxis, timeRadiatedIR/3600, totalRadiatedIR, 'r', "DisplayName", "Total radiated IR","LineWidth",2);
             xL=appAxis.XLim;
             yL=appAxis.YLim;
             text(appAxis,0.5, 1,strcat("\mu = ", num2str(avgRadiatedRadiation,2), " W"),'Units','normalized','HorizontalAlignment','center','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
 
 %             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgRadiatedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         else  % Both
-            plot(appAxis, timeAbsorbedIR/3600, totalAbsorbedIR, 'b', "DisplayName", "Total absorbed IR");
+            plot(appAxis, timeAbsorbedIR/3600, totalAbsorbedIR, 'b', "DisplayName", "Total absorbed IR","LineWidth",2);
             hold(appAxis,"on");
-            plot(appAxis, timeRadiatedIR/3600, totalRadiatedIR, 'r', "DisplayName", "Total radiated IR");
+            plot(appAxis, timeRadiatedIR/3600, totalRadiatedIR, 'r', "DisplayName", "Total radiated IR","LineWidth",2);
             
             xL=appAxis.XLim;
             yL=appAxis.YLim;
@@ -56,12 +56,12 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
     else
         if(plotAbsorbedIRFlag)
             hold(appAxis,"on");
-            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Xplus.(1), "DisplayName", "X+", "Color","red");
-            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Xminus.(1), "DisplayName", "X-", "Color","green");
-            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Yplus.(1),  "DisplayName", "Y+", "Color","blue");
-            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Yminus.(1),  "DisplayName", "Y-", "Color","cyan");
-            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Zplus.(1),  "DisplayName", "Z+", "Color","magenta");
-            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Zminus.(1),  "DisplayName", "Z-", "Color","#EDB120");
+            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Xplus.(1), "DisplayName", "X+", "Color","red","LineWidth",2);
+            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Xminus.(1), "DisplayName", "X-", "Color","green","LineWidth",2);
+            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Yplus.(1),  "DisplayName", "Y+", "Color","blue","LineWidth",2);
+            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Yminus.(1),  "DisplayName", "Y-", "Color","cyan","LineWidth",2);
+            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Zplus.(1),  "DisplayName", "Z+", "Color","magenta","LineWidth",2);
+            plot(appAxis, timeAbsorbedIR/3600, thermal.faceIR.Zminus.(1),  "DisplayName", "Z-", "Color","#EDB120","LineWidth",2);
 
             xL=appAxis.XLim;
             yL=appAxis.YLim;
@@ -70,12 +70,12 @@ function plotIRRadiationInput(appAxis, thermal, plotAllFacesFlag, plotAbsorbedIR
 %             text(appAxis, 1.2*mean(xL), 0.99*yL(2),strcat("\mu = ", num2str(avgAbsorbedRadiation,2), " W"),'HorizontalAlignment','right','VerticalAlignment','top','FontWeight','bold','BackgroundColor',"white");
         else
             hold(appAxis,"on");
-            plot(appAxis, timeRadiatedIR/3600, thermal.out.XplusIRfluxOut.Data(:), "DisplayName", "X+", "Color","red");
-            plot(appAxis, timeRadiatedIR/3600, thermal.out.XminusIRfluxOut.Data(:), "DisplayName", "X-", "Color","green");
-            plot(appAxis, timeRadiatedIR/3600, thermal.out.YplusIRfluxOut.Data(:),  "DisplayName", "Y+", "Color","blue");
-            plot(appAxis, timeRadiatedIR/3600, thermal.out.YminusIRfluxOut.Data(:),  "DisplayName", "Y-", "Color","cyan");
-            plot(appAxis, timeRadiatedIR/3600, thermal.out.ZplusIRfluxOut.Data(:),  "DisplayName", "Z+", "Color","magenta");
-            plot(appAxis, timeRadiatedIR/3600, thermal.out.ZminusIRfluxOut.Data(:),  "DisplayName", "Z-", "Color","#EDB120");
+            plot(appAxis, timeRadiatedIR/3600, thermal.out.XplusIRfluxOut.Data(:), "DisplayName", "X+", "Color","red","LineWidth",2);
+            plot(appAxis, timeRadiatedIR/3600, thermal.out.XminusIRfluxOut.Data(:), "DisplayName", "X-", "Color","green","LineWidth",2);
+            plot(appAxis, timeRadiatedIR/3600, thermal.out.YplusIRfluxOut.Data(:),  "DisplayName", "Y+", "Color","blue","LineWidth",2);
+            plot(appAxis, timeRadiatedIR/3600, thermal.out.YminusIRfluxOut.Data(:),  "DisplayName", "Y-", "Color","cyan","LineWidth",2);
+            plot(appAxis, timeRadiatedIR/3600, thermal.out.ZplusIRfluxOut.Data(:),  "DisplayName", "Z+", "Color","magenta","LineWidth",2);
+            plot(appAxis, timeRadiatedIR/3600, thermal.out.ZminusIRfluxOut.Data(:),  "DisplayName", "Z-", "Color","#EDB120","LineWidth",2);
 
             xL=appAxis.XLim;
             yL=appAxis.YLim;

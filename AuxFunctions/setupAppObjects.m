@@ -37,7 +37,7 @@ function setupAppObjects(app)
     app.UpdateOrbitStatusLabel.Text = '';
     %% ### Model Tab ###
     app.UnitsDropDown.Value = strcat(num2str(app.param.numberOfUnits),'U');     % #Units
-    app.MasskgSpinner.Value = app.param.satelliteMass;                          % Mass (kg)
+    app.BodyMasskgSpinner.Value = app.param.satelliteMass;                          % Mass (kg)
     % Internal node
     app.IntermalnodetototalmassratioSpinner.Value = app.param.internalNode2TotalMassRatio*100;  % Internal Node Mass Ratio
     app.IntermalnodeSpecificHeatJkgKSpinner.Value = app.param.internalNodeCp;                   % Internal Node Cp
@@ -51,7 +51,11 @@ function setupAppObjects(app)
     app.SpinnerRYplus.Value =   app.param.resistance(3); 
     app.SpinnerRYminus.Value =  app.param.resistance(4); 
     app.SpinnerRZplus.Value =   app.param.resistance(5); 
-    app.SpinnerRZminus.Value =  app.param.resistance(6); 
+    app.SpinnerRZminus.Value =  app.param.resistance(6);
+    % Mass Distribution Table
+    massVector = app.param.satelliteMass * [app.param.internalNode2TotalMassRatio; (1-app.param.internalNode2TotalMassRatio)* app.param.facesMassDistribution'];
+    app.UITableMassDistribution.Data = table(["Internal Node";"X+";"X-";"Y+";"Y-";"Z+";"Z-"],massVector,'VariableNames',{'Node','Mass'});
+
     %% ### X+ Face
     faceID = 1;
     app.SurfaceTypeDropDownXplus.Value = app.param.facesMaterial(faceID);                           % Surface type

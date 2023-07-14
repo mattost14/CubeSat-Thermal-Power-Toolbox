@@ -6,7 +6,7 @@ function plotInternalTemperatures(appAxis, thermal)
     temp_C = thermal.out.internalNodeTemp.Data(:)-273;
 
     cla(appAxis)
-    plot(appAxis, time/3600, temp_C, 'b', "DisplayName", "Node 1");
+    plot(appAxis, time/3600, temp_C, 'b', "DisplayName", "Node 1","LineWidth",2);
 
     legend(appAxis);
     ylabel(appAxis, "Temp (oC)")

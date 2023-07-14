@@ -29,6 +29,12 @@ function [propData, flag] = propagateEarthOrbit(orb)
         [r_I,v_I] = states(sat,'CoordinateFrame', 'inertial'); %m
         r_I = (r_I')./1e3; % m -> km
         v_I = (v_I')./1e3; % m/s -> km/s
+
+        % Retrieve states in geographic coordinates
+        [llaData, ~, llaTimeStamps] = states(sat, "CoordinateFrame","geographic");
+            % Organize state data for each satellite in a seperate timetable
+        llaTable = timetable(llaTimeStamps', llaData(1,:)', llaData(2,:)', llaData(3,:)',...
+        'VariableNames', {'Lat_deg','Lon_deg', 'Alt_m'});
     
         % Sun position x,y,z at ECI (Inertial) frame
         [sun_I, ~] = planetEphemeris(time_Julian,'Earth','Sun'); % units: km
@@ -47,7 +53,8 @@ function [propData, flag] = propagateEarthOrbit(orb)
     
         %% Eclipse check calculation
         distance_Sat2EarthCenter = sqrt(r_I(:,1).^2+r_I(:,2).^2+r_I(:,3).^2); % (km)
-        altitude = distance_Sat2EarthCenter - earthRadius/1e3;
+%         altitude = distance_Sat2EarthCenter - earthRadius/1e3; %km
+        altitude = llaTable.Alt_m/1e3; %km
         thetaSat2EarthTangent = asind((earthRadius/1e3)./distance_Sat2EarthCenter);
         
         calculateAngleBetweenVectors = @(u,v) acosd(max(min(dot(u,v)/(norm(u)*norm(v)),1),-1)); % function that return angle between two vectors in degrees

@@ -5,11 +5,11 @@ function plotPwrConsumption(appAxis, time, sunMagnitude, pwrDissipationDay, pwrD
     switch pwrDissipationProfile
         case "Constant"
             pwrDissipation = pwrDissipationDay * ones(1, length(time));
-            plot(appAxis, time/3600, pwrDissipation, 'b', 'DisplayName',"Node 1");
+            plot(appAxis, time/3600, pwrDissipation, 'b', 'DisplayName',"Node 1","LineWidth",2);
         case "Day/Night"
             pwrDissipation = pwrDissipationDay .* sunMagnitude;
             pwrDissipation = pwrDissipation +  pwrDissipationNight .* (1-sunMagnitude);
-            plot(appAxis, time/3600, pwrDissipation, 'b', 'DisplayName',"Node 1");
+            plot(appAxis, time/3600, pwrDissipation, 'b', 'DisplayName',"Node 1","LineWidth",2);
     end
 
 

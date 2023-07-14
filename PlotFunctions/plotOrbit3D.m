@@ -32,7 +32,7 @@ cla(appAxis);
     text(appAxis, v(1),v(2),v(3),'z','HorizontalAlignment','left','FontSize',12, 'Color','b');
 
 
-    
+    rotate3d(appAxis,'on')
     axis(appAxis, "off");
     axis(appAxis, "equal");
 

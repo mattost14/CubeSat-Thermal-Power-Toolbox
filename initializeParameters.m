@@ -83,6 +83,10 @@ app.param.deployable.solarCellEff = [.28, .28, .28, .28, .28, .28];
 app.param.deployable.effectiveAreaRatio = [.6, .6, .6, .6, .6, .6];
 app.param.deployable.flipFixedPanel = [0,0,0,0,0,0];
 
+% Mass Table
+massVector = app.param.satelliteMass * [app.param.internalNode2TotalMassRatio; (1-app.param.internalNode2TotalMassRatio)* app.param.facesMassDistribution'];
+app.UITableMassDistribution.Data = table(["Internal Node";"X+";"X-";"Y+";"Y-";"Z+";"Z-"],massVector,'VariableNames',{'Node','Mass'});
+
 
 % Insulator (Blanket) Properties
 app.param.resistanceBlanket = [0, 0, 0, 0, 0, 0];                   % Thermal resistance between face inner surface and the outer surface of the blanket K/W 
@@ -263,7 +267,7 @@ app.SpinnerRYplus.Value = app.param.resistance(3);
 app.SpinnerRYminus.Value = app.param.resistance(4);
 app.SpinnerRZplus.Value = app.param.resistance(5);
 app.SpinnerRZminus.Value = app.param.resistance(6);
-app.ThermalResistanceImage.ImageSource = "Figures/ThermalModel7NodesSchematic.png";
+app.ThermalResistanceImage.ImageSource = "Figures/ThermalModel7NodesSchematic_v2.png";
 
 
 %% ########## Power Tab ########
