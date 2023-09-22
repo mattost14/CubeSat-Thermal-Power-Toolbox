@@ -7,7 +7,6 @@ mission.StartDate = datetime(year(orb.startDate),month(orb.startDate),day(orb.st
 mission.Duration  = hours(orb.durationHours);
 
 
-
 %% Configure the Model
 
 mission.mdl = "LunarOrbitPropagator";
